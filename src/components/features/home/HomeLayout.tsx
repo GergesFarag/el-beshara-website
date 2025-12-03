@@ -18,6 +18,7 @@ const HomeLayout = () => {
           <GalleryHomeLayout/>
         </div>
       </div>
+     
     </div>
   );
 };
