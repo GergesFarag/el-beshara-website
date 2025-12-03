@@ -2,7 +2,7 @@ import Link from "next/link";
 
  const Footer =()=> {
   return (
-    <footer className="relative bg-dark text-dark-foreground overflow-hidden">
+    <footer className="relative bg-dark text-dark-foreground dark:bg-secondary overflow-hidden">
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute w-96 h-96 bg-purple-500/10 rounded-full blur-3xl -top-48 -left-48 animate-pulse"></div>
@@ -46,7 +46,7 @@ import Link from "next/link";
             <ul className="space-y-2">
               {['About Us', 'Services', 'Projects', 'Contact'].map((item, i) => (
                 <li key={i}>
-                  <Link href="#" className="text-light/80 hover:text-primary/50 hover:translate-x-2 inline-block transition-all duration-300">
+                  <Link href="#" className="text-light/80 hover:text-primary hover:translate-x-2 inline-block transition-all duration-300">
                     {item}
                   </Link>
                 </li>
@@ -60,7 +60,7 @@ import Link from "next/link";
             <ul className="space-y-2">
               {['Blog', 'Documentation', 'Support', 'FAQ'].map((item, i) => (
                 <li key={i}>
-                  <Link href="#" className="text-light/80 hover:text-primary/50 hover:translate-x-2 inline-block transition-all duration-300">
+                  <Link href="#" className="text-light/80 hover:text-primary hover:translate-x-2 inline-block transition-all duration-300">
                     {item}
                   </Link>
                 </li>
