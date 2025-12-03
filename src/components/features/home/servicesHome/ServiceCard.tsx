@@ -24,7 +24,7 @@ const ServiceCard = () => {
         <div
           className="
             absolute bottom-0 left-0 w-full
-            bg-foreground/80 dark:bg-background/80
+            bg-dark/80 
             flex flex-col items-center justify-evenly
             overflow-hidden p-4 
             h-[60px] sm:h-[65px] md:h-[70px] lg:h-[60px] group-hover:h-60 sm:group-hover:h-[190px] md:group-hover:h-[250px]
@@ -32,7 +32,7 @@ const ServiceCard = () => {
           "
         >
           {/* Title: always visible */}
-          <p className="text-light text-lg font-bold ">Service</p>
+          <p className="text-dark-foreground text-lg font-bold ">Service</p>
 
           {/* Hidden content: appears on hover */}
           <div
