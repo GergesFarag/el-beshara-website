@@ -19,7 +19,7 @@ const HomeHeroLayout = () => {
         <div className="flex h-fit p-10 max-w-2xl  rounded-lg flex-col items-center justify-center relative z-20 text-primary-foreground gap-5">
           <div className="flex flex-col justify-center gap-2">
             <p className="text-primary-foreground sm:text-2xl text-lg">welcome to</p>
-            <h1 className="sm:text-7xl text-5xl font-extrabold">El-Beshara Office</h1>
+            <h1 className="sm:text-7xl text-5xl font-extrabold">El-Beshara Studio</h1>
             <p className="text-sm md:text-lg text-light/80">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil cum minus, et magnam soluta odit molestiae dignissimos omnis quam </p>
           </div>
           <div className="flex text-center justify-evenly flex-col sm:flex-row gap-5 w-full">
