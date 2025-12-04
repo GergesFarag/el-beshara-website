@@ -28,6 +28,12 @@ const RightAboutHome = ({
         <li className="text-foreground/80  md:text-lg text-base">
           Lorem ipsum dolor sit amet
         </li>
+        <li className="text-foreground/80  md:text-lg text-base">
+          Lorem ipsum dolor sit amet
+        </li>
+        <li className="text-foreground/80  md:text-lg text-base">
+          Lorem ipsum dolor sit amet
+        </li>
       </ul>
       {isInHome && <MyBtn text="read more" href="/about" className="mt-4 " />}
       

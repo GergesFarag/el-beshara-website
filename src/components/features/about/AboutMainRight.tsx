@@ -8,8 +8,8 @@ import {
 
 const AboutMainRight = ({ className }: { className: string }) => {
   return (
-    <div className={`${className} flex flex-col md:flex-row gap-5`}>
-      <div className="h-[300px] md:h-[500px] sm:h-[500px] shrink-0">
+    <div className={`${className} flex flex-col md:flex-row gap-5 h-[300px] md:h-[535px] sm:h-[500px]`}>
+      <div className=" shrink-0 h-full">
         <Image
           src="/home/about2.jpg"
           alt="about"
@@ -23,14 +23,14 @@ const AboutMainRight = ({ className }: { className: string }) => {
           type="single"
           collapsible
           className="w-full"
-          defaultValue="item-1"
+          defaultValue="item-3"
         >
           <AccordionItem value="item-1" className="bg-secondary p-1 rounded-lg mb-5">
             <div className="p-2 cursor-pointer">
-              <AccordionTrigger className="text-primary text-lg md:text-2xl capitalize cursor-pointer">
+              <AccordionTrigger className="text-foreground text-lg md:text-2xl capitalize cursor-pointer">
                 Our Vision
               </AccordionTrigger>
-              <AccordionContent className="flex flex-col gap-4 text-balance text-foreground">
+              <AccordionContent className="flex flex-col gap-4 text-balance text-foreground/80">
                 <p>
                   To be a beacon of faith-inspired creativity, empowering Christian artists 
                   and worship leaders to craft music that transforms hearts and glorifies God 
@@ -46,10 +46,10 @@ const AboutMainRight = ({ className }: { className: string }) => {
 
           <AccordionItem value="item-2" className="bg-secondary p-1 rounded-lg mb-5">
             <div className="p-2 cursor-pointer">
-              <AccordionTrigger className="text-primary text-lg md:text-2xl capitalize cursor-pointer">
+              <AccordionTrigger className="text-foreground text-lg md:text-2xl capitalize cursor-pointer">
                 Our Mission
               </AccordionTrigger>
-              <AccordionContent className="flex flex-col gap-4 text-balance text-foreground">
+              <AccordionContent className="flex flex-col gap-4 text-balance text-foreground/80">
                 <p>
                   To provide exceptional recording, production, and mixing services that honor 
                   God and serve the Christian music community with excellence, integrity, and compassion.
@@ -65,10 +65,10 @@ const AboutMainRight = ({ className }: { className: string }) => {
 
           <AccordionItem value="item-3" className="bg-secondary p-1 rounded-lg">
             <div className="p-2 cursor-pointer">
-              <AccordionTrigger className="text-primary text-lg md:text-2xl capitalize cursor-pointer">
+              <AccordionTrigger className="text-foreground text-lg md:text-2xl capitalize cursor-pointer">
                 Our Values
               </AccordionTrigger>
-              <AccordionContent className="flex flex-col gap-4 text-balance text-foreground">
+              <AccordionContent className="flex flex-col gap-4 text-balance text-foreground/80">
                 <p>
                   <strong>Faith First:</strong> We place God at the center of everything we do, 
                   praying over each project and seeking His guidance in our creative process.
