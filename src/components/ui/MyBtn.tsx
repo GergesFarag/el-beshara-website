@@ -4,9 +4,9 @@ import React from "react";
 type IBtnVariant = "primary" | "secondary" | "light" | "dark";
 
 interface IBtn {
-  text: string;
+  text: string | React.ReactNode;
   onClick?: () => void;
-  href: string;
+  href?: string;
   variant?: IBtnVariant;
   outline?: boolean;
   icon?: React.ReactNode;
@@ -59,13 +59,11 @@ const MyBtn = ({
       className={` ${CheckVariant(
         variant,
         outline
-      )} ${className} flex justify-center items-center gap-2 rounded-md font-semibold px-4 py-2 hover:scale-105 transition duration-300 cursor-pointer capitalize group w-${width} `}
+      )} ${className} flex justify-center items-center ${icon && "gap-2"}  font-semibold px-4 py-2  hover:scale-105 transition duration-300 cursor-pointer capitalize group w-${width} rounded-lg `}
       onClick={onClick}
     >
       {text}
-      <span className="group-hover:translate-x-3 transition duration-500">
-        {icon}
-      </span>
+      { icon && <span className="group-hover:translate-x-3 transition duration-500">{icon}</span>}
     </Link>
   );
 };
