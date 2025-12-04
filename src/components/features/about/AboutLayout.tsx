@@ -5,7 +5,7 @@ import WhyChooseUsLayout from "@/components/shared/whyChooseUs/WhyChooseUsLayout
 
 const AboutLayout = () => {
   return (
-    <div className="w-myWidth mx-auto space-y-40 mb-40 ">
+    <div className="w-myWidth mx-auto space-y-20 my-30 ">
       <AboutMainSection />
       <WhyChooseUsLayout/>
       <AboutHomeSectionLayout isInHome={false} />
