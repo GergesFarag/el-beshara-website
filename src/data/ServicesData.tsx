@@ -91,7 +91,7 @@ const ServicesData = (): IService[] => {
       ],
       action: {
         text: "Start Recording",
-        href: "/services",
+        href: "/services/#record",
       },
     },
 
