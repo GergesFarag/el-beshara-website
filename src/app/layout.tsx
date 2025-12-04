@@ -32,9 +32,12 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <MainProvider>
-          <Navbar menu={NavMenuItems} className="fixed w-full h-fit inset-0 z-999 bg-background" />
+          <Navbar
+            menu={NavMenuItems}
+            className="fixed w-full h-fit inset-0 z-999 bg-background"
+          />
           <div className=" my-15">{children}</div>
-          <Footer/>
+          <Footer />
         </MainProvider>
       </body>
     </html>
