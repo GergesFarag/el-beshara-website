@@ -10,8 +10,8 @@ import {
   ContactFormSchema,
   ContactFormType,
 } from "@/lib/validation/contactFormSchema";
-import { toast } from "sonner";
 import { IoCheckmarkDoneCircleSharp } from "react-icons/io5";
+import toast from "react-hot-toast";
 
 const ContactForm = ({ className }: { className?: string }) => {
   const {
@@ -25,14 +25,60 @@ const ContactForm = ({ className }: { className?: string }) => {
   });
 
   const onSubmit = (data: ContactFormType) => {
-    toast("Message sent successfully!", {
-      icon: <IoCheckmarkDoneCircleSharp />,
-      style: {
-        background: "var(--foreground)",
-        color: "var(--background)",
-        fontSize: "1.1rem",
-      },
-    });
+   toast.custom((t) => (
+  <div
+    className={`${
+      t.visible ? "animate-enter" : "animate-leave"
+    } pointer-events-auto flex w-full max-w-md rounded-xl bg-background shadow-2xl border border-primary/20 overflow-hidden`}
+  >
+    {/* Colored side accent */}
+    <div className="w-1.5 bg-primary"></div>
+    
+    <div className="flex flex-1 items-start gap-3 p-4">
+      {/* Success Icon */}
+      <div className="shrink-0 w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+        <svg
+          className="w-5 h-5 text-primary"
+          fill="none"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path d="M5 13l4 4L19 7"></path>
+        </svg>
+      </div>
+
+      {/* Content */}
+      <div className="flex-1 pt-0.5">
+        <p className="text-sm font-semibold text-primary mb-1">Success!</p>
+        <p className="text-sm text-foreground/70">
+          Your message has been sent successfully
+        </p>
+      </div>
+
+      {/* Close Button */}
+      <button
+        onClick={() => toast.dismiss(t.id)}
+        className="shrink-0 w-8 h-8 rounded-lg hover:bg-secondary/50 transition-colors duration-200 flex items-center justify-center group"
+        aria-label="Close notification"
+      >
+        <svg
+          className="w-4 h-4 text-foreground/50 group-hover:text-foreground transition-colors"
+          fill="none"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+));
     reset();
   };
 
