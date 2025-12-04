@@ -1,12 +1,13 @@
 import PageHero from "@/components/shared/PageHero";
 import React from "react";
 
-const page = () => {
+const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div>
       <PageHero />
+      {children}
     </div>
   );
 };
 
-export default page;
+export default Layout;

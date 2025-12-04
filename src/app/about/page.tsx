@@ -1,9 +1,11 @@
-import React from 'react'
+import PageHero from "@/components/shared/PageHero";
 
 const page = () => {
   return (
-    <div>page</div>
-  )
-}
+    <div>
+      <PageHero />
+    </div>
+  );
+};
 
-export default page
+export default page;
