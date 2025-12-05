@@ -65,6 +65,8 @@ interface Item {
   img: string;
   url: string;
   height: number;
+  type?: "image" | "video";
+  poster?: string; // Optional poster image for videos
 }
 
 interface GridItem extends Item {
@@ -84,6 +86,7 @@ interface MasonryProps {
   hoverScale?: number;
   blurToFocus?: boolean;
   colorShiftOnHover?: boolean;
+  mediaType?: "image" | "video"; // Specify which type this instance handles
 }
 
 const Masonry: React.FC<MasonryProps> = ({
@@ -96,6 +99,7 @@ const Masonry: React.FC<MasonryProps> = ({
   hoverScale = 0.95,
   blurToFocus = true,
   colorShiftOnHover = false,
+  mediaType = "image",
 }) => {
   const columns = useMedia(
     [
@@ -110,7 +114,8 @@ const Masonry: React.FC<MasonryProps> = ({
 
   const [containerRef, { width }] = useMeasure<HTMLDivElement>();
   const [imagesReady, setImagesReady] = useState(false);
-  const [popupImage, setPopupImage] = useState<string | null>(null);
+  const [popupMedia, setPopupMedia] = useState<string | null>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
 
   const getInitialPosition = (item: GridItem) => {
@@ -144,9 +149,16 @@ const Masonry: React.FC<MasonryProps> = ({
     }
   };
 
-  useEffect(() => {
-    preloadImages(items.map((i) => i.img)).then(() => setImagesReady(true));
-  }, [items]);
+useEffect(() => {
+  const updateImagesReady = async () => {
+    if (mediaType === "image") {
+      await preloadImages(items.map((i) => i.img));
+    }
+    setImagesReady(true);
+  };
+
+  updateImagesReady();
+}, [items, mediaType]);
 
   const grid = useMemo<GridItem[]>(() => {
     if (!width) return [];
@@ -260,40 +272,77 @@ const Masonry: React.FC<MasonryProps> = ({
               height: item.h,
               transform: `translate(${item.x}px, ${item.y}px)`,
             }}
-            onClick={() => setPopupImage(item.img)}
+            onClick={() => setPopupMedia(item.img)}
             onMouseEnter={(e) => handleMouseEnter(item.id, e.currentTarget)}
             onMouseLeave={(e) => handleMouseLeave(item.id, e.currentTarget)}
           >
-            <div
-              className="relative w-full h-full bg-cover bg-center rounded-[10px] shadow-[0px_10px_50px_-10px_rgba(0,0,0,0.2)] uppercase text-[10px] leading-[10px] cursor-pointer"
-              style={{ backgroundImage: `url(${item.img})` }}
-            >
-              {colorShiftOnHover && (
-                <div className="color-overlay absolute inset-0 rounded-[10px] bg-gradient-to-tr from-pink-500/50 to-sky-500/50 opacity-0 pointer-events-none" />
-              )}
-            </div>
+            {mediaType === "image" ? (
+              <div
+                className="relative w-full h-full bg-cover bg-center rounded-[10px] shadow-[0px_10px_50px_-10px_rgba(0,0,0,0.2)] uppercase text-[10px] leading-[10px] cursor-pointer"
+                style={{ backgroundImage: `url(${item.img})` }}
+              >
+                {colorShiftOnHover && (
+                  <div className="color-overlay absolute inset-0 rounded-[10px] bg-gradient-to-tr from-pink-500/50 to-sky-500/50 opacity-0 pointer-events-none" />
+                )}
+              </div>
+            ) : (
+              <div className="relative w-full h-full rounded-[10px] shadow-[0px_10px_50px_-10px_rgba(0,0,0,0.2)] overflow-hidden cursor-pointer">
+                <video
+                  src={item.img}
+                  poster={item.poster}
+                  className="w-full h-full object-cover"
+                  muted
+                  loop
+                  playsInline
+                />
+                {colorShiftOnHover && (
+                  <div className="color-overlay absolute inset-0 bg-gradient-to-tr from-pink-500/50 to-sky-500/50 opacity-0 pointer-events-none" />
+                )}
+              </div>
+            )}
           </div>
         ))}
       </div>
 
-      {popupImage && (
+      {popupMedia && (
         <div
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm"
-          onClick={() => setPopupImage(null)}
+          onClick={() => {
+            setPopupMedia(null);
+            if (videoRef.current) {
+              videoRef.current.pause();
+            }
+          }}
         >
           <button
-            onClick={() => setPopupImage(null)}
+            onClick={() => {
+              setPopupMedia(null);
+              if (videoRef.current) {
+                videoRef.current.pause();
+              }
+            }}
             className="absolute top-6 right-6 w-12 h-12 flex items-center justify-center bg-white/10 hover:bg-white/20 rounded-full text-white text-2xl font-light transition-colors duration-200 z-10"
             aria-label="Close popup"
           >
             ×
           </button>
-          <img
-            src={popupImage}
-            alt="Popup view"
-            className="max-w-[90vw] max-h-[90vh] object-contain rounded-lg shadow-2xl"
-            onClick={(e) => e.stopPropagation()}
-          />
+          {mediaType === "image" ? (
+            <img
+              src={popupMedia}
+              alt="Popup view"
+              className="max-w-[90vw] max-h-[90vh] object-contain rounded-lg shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
+            />
+          ) : (
+            <video
+              ref={videoRef}
+              src={popupMedia}
+              className="max-w-[90vw] max-h-[90vh] object-contain rounded-lg shadow-2xl"
+              controls
+              autoPlay
+              onClick={(e) => e.stopPropagation()}
+            />
+          )}
         </div>
       )}
     </>

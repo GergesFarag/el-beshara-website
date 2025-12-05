@@ -6,7 +6,7 @@ const page = () => {
 
   return (
     <div className='min-h-screen'>
-      <Masonry items={images}/>
+      <Masonry items={images} mediaType='image'/>
     </div>
   )
 }
