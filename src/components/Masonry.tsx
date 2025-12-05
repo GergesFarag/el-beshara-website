@@ -13,17 +13,23 @@ const useMedia = (
   values: number[],
   defaultValue: number
 ): number => {
-  const get = () =>
-    values[queries.findIndex((q) => matchMedia(q).matches)] ?? defaultValue;
+  const get = () => {
+    if (typeof window === 'undefined') return defaultValue;
+    return values[queries.findIndex((q) => window.matchMedia(q).matches)] ?? defaultValue;
+  };
 
-  const [value, setValue] = useState<number>(get);
+  const [value, setValue] = useState<number>(defaultValue);
 
   useEffect(() => {
-    const handler = () => setValue(get);
-    queries.forEach((q) => matchMedia(q).addEventListener("change", handler));
+    if (typeof window === 'undefined') return;
+    
+    setValue(get());
+    
+    const handler = () => setValue(get());
+    queries.forEach((q) => window.matchMedia(q).addEventListener("change", handler));
     return () =>
       queries.forEach((q) =>
-        matchMedia(q).removeEventListener("change", handler)
+        window.matchMedia(q).removeEventListener("change", handler)
       );
   }, [queries]);
 
@@ -149,16 +155,14 @@ const Masonry: React.FC<MasonryProps> = ({
     }
   };
 
-useEffect(() => {
-  const updateImagesReady = async () => {
+  useEffect(() => {
     if (mediaType === "image") {
-      await preloadImages(items.map((i) => i.img));
+      preloadImages(items.map((i) => i.img)).then(() => setImagesReady(true));
+    } else {
+      // For videos, we don't preload - just mark as ready
+      setImagesReady(true);
     }
-    setImagesReady(true);
-  };
-
-  updateImagesReady();
-}, [items, mediaType]);
+  }, [items, mediaType]);
 
   const grid = useMemo<GridItem[]>(() => {
     if (!width) return [];
