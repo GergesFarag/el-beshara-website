@@ -5,6 +5,7 @@ import Navbar from "@/components/shared/Navbar";
 import { NavMenuItems } from "@/data/NavMenuItems";
 import MainProvider from "@/components/providers/MainProvider";
 import Footer from "@/components/shared/Footer";
+import { SidebarTrigger } from "@/components/ui/sidebar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,15 +32,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {/* <MainProvider>
-          <Navbar
-            menu={NavMenuItems}
-            className="fixed w-full h-fit inset-0 z-49 bg-background "
-          />
-          <div className=" my-15">{children}</div>
-          <Footer />
-        </MainProvider> */}
-        {children}
+        <MainProvider>{children}</MainProvider>
       </body>
     </html>
   );

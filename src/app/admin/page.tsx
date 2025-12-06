@@ -1,9 +1,9 @@
-import React from 'react'
+import { redirect } from "next/navigation";
+import React from "react";
 
 const page = () => {
-  return (
-    <div>page</div>
-  )
-}
+  // redirect("/admin/images");
+  return <div>page</div>;
+};
 
-export default page
+export default page;
