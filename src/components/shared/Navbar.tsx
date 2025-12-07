@@ -14,6 +14,8 @@ import Link from "next/link";
 import { ModeToggle } from "./ModeToggle";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import dynamic from "next/dynamic";
+import { Spinner } from "../ui/spinner";
 
 interface MenuItem {
   title: string;
@@ -45,7 +47,7 @@ const Navbar = ({
   const [scrolled, setScrolled] = useState(false);
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 0); 
+      setScrolled(window.scrollY > 0);
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -54,9 +56,22 @@ const Navbar = ({
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
-
+  const LanguageSwitcher = dynamic(() => import("./LanguageSwitcher"), {
+    ssr: false,
+    loading: () => (
+      <div className="w-8 h-8 bg-background text-foreground flex justify-center items-center rounded-lg">
+        <Spinner />
+      </div>
+    ),
+  });
   return (
-    <section className={`py-2 md:py-3  ${scrolled ?"bg-background border-b text-foreground " : "bg-transparent text-light"}  ${className}`}>
+    <section
+      className={`py-2 md:py-3  ${
+        scrolled
+          ? "bg-background border-b text-foreground "
+          : "bg-transparent text-light"
+      }  ${className}`}
+    >
       <div className="max-w-[80%] mx-auto">
         {/* Desktop Navbar */}
         <nav className="hidden md:flex items-center justify-between">
@@ -96,9 +111,10 @@ const Navbar = ({
             })}
           </div>
 
-          {/* Desktop Mode Toggle */}
+          {/* Desktop Mode Toggle  & Language Switcher*/}
           <div className="hidden md:flex items-center gap-4">
             <ModeToggle />
+            <LanguageSwitcher />
           </div>
         </nav>
 
@@ -128,7 +144,11 @@ const Navbar = ({
                 <Button
                   variant="outline"
                   size="icon"
-                  className="ml-2 cursor-pointer"
+                  className={`ml-2 cursor-pointer border-background ${
+                    scrolled
+                      ? "bg-background border-b text-foreground "
+                      : "bg-transparent text-light"
+                  }`}
                 >
                   <Menu className="size-4" />
                   <span className="sr-only">Open menu</span>
@@ -154,13 +174,6 @@ const Navbar = ({
                   </SheetTitle>
                 </SheetHeader>
 
-                {/* Optional: Mobile Theme Toggle Inside Sheet */}
-                <div className="mt-8 pt-6 border-t">
-                  <div className="flex justify-center">
-                    <ModeToggle />
-                  </div>
-                </div>
-
                 {/* Mobile Menu Items */}
                 <div className="flex flex-col gap-4 mt-8 px-4">
                   {menu?.map((item) => (
@@ -177,6 +190,16 @@ const Navbar = ({
                       {item.title}
                     </Link>
                   ))}
+                </div>
+
+                {/* Optional: Mobile Theme Toggle Inside Sheet */}
+                <div className=" pt-6 border-t flex   p-5 gap-4">
+                  <div className="flex justify-center">
+                    <ModeToggle />
+                  </div>
+                  <div className="flex justify-center">
+                    <LanguageSwitcher />
+                  </div>
                 </div>
               </SheetContent>
             </Sheet>
