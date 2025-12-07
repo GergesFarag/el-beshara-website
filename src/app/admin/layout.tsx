@@ -5,12 +5,11 @@ import React from "react";
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div>
-      
-      <SidebarProvider  >
-        <DashboardSidebar/>
-        <SidebarTrigger/>
-        {children}
-        </SidebarProvider>
+      <SidebarProvider>
+        <DashboardSidebar />
+        <SidebarTrigger />
+        <div className="my-10 w-[80%] mx-auto ">{children}</div>
+      </SidebarProvider>
     </div>
   );
 };
