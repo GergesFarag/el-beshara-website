@@ -14,9 +14,9 @@ export default function SiteLayout({
     <MainProvider>
       <Navbar
         menu={NavMenuItems}
-        className="fixed w-full h-fit inset-0 z-49 bg-background "
+        className="fixed w-full h-fit inset-0 z-49  "
       />
-      <div className=" my-15">{children}</div>
+      <div className=" mb-15">{children}</div>
       <Footer />
     </MainProvider>
   );

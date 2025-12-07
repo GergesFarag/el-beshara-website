@@ -13,6 +13,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ModeToggle } from "./ModeToggle";
 import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 
 interface MenuItem {
   title: string;
@@ -41,9 +42,21 @@ const Navbar = ({
   className,
 }: NavbarProps) => {
   const pathname = usePathname();
+  const [scrolled, setScrolled] = useState(false);
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 0); 
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   return (
-    <section className={`py-2 md:py-3 border-b  ${className}`}>
+    <section className={`py-2 md:py-3  ${scrolled ?"bg-background border-b text-foreground " : "bg-transparent text-light"}  ${className}`}>
       <div className="max-w-[80%] mx-auto">
         {/* Desktop Navbar */}
         <nav className="hidden md:flex items-center justify-between">
@@ -66,14 +79,14 @@ const Navbar = ({
             {menu?.map((item) => {
               const isActive =
                 item.url === "/gallery/images"
-                  ? pathname.includes("gallery") 
+                  ? pathname.includes("gallery")
                   : pathname === item.url;
 
               return (
                 <Link
                   key={item.title}
                   href={item.url}
-                  className={`text-sm font-medium link-underline ${
+                  className={`text-md font-medium link-underline ${
                     isActive ? "link-active" : ""
                   }`}
                 >
@@ -84,7 +97,7 @@ const Navbar = ({
           </div>
 
           {/* Desktop Mode Toggle */}
-          <div className="flex items-center gap-4">
+          <div className="hidden md:flex items-center gap-4">
             <ModeToggle />
           </div>
         </nav>
@@ -108,7 +121,6 @@ const Navbar = ({
           {/* Mobile Right Side (Menu + Mode Toggle) */}
           <div className="flex items-center gap-2">
             {/* Mobile Mode Toggle */}
-            <ModeToggle />
 
             {/* Mobile Menu Sheet */}
             <Sheet>
@@ -142,6 +154,13 @@ const Navbar = ({
                   </SheetTitle>
                 </SheetHeader>
 
+                {/* Optional: Mobile Theme Toggle Inside Sheet */}
+                <div className="mt-8 pt-6 border-t">
+                  <div className="flex justify-center">
+                    <ModeToggle />
+                  </div>
+                </div>
+
                 {/* Mobile Menu Items */}
                 <div className="flex flex-col gap-4 mt-8 px-4">
                   {menu?.map((item) => (
@@ -159,13 +178,6 @@ const Navbar = ({
                     </Link>
                   ))}
                 </div>
-
-                {/* Optional: Mobile Theme Toggle Inside Sheet */}
-                {/* <div className="mt-8 pt-6 border-t">
-                  <div className="flex justify-center">
-                    <ModeToggle />
-                  </div>
-                </div> */}
               </SheetContent>
             </Sheet>
           </div>
