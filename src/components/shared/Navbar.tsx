@@ -16,11 +16,8 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import { Spinner } from "../ui/spinner";
-
-interface MenuItem {
-  title: string;
-  url: string;
-}
+import { useTranslations } from "next-intl";
+import { MenuItem } from "@/lib/Interfaces/ServiceInterface";
 
 interface NavbarProps {
   logo?: {
@@ -29,7 +26,6 @@ interface NavbarProps {
     alt: string;
     title: string;
   };
-  menu?: MenuItem[];
   className?: string;
 }
 
@@ -40,11 +36,12 @@ const Navbar = ({
     alt: "logo",
     title: "Shadcn Blocks",
   },
-  menu,
   className,
 }: NavbarProps) => {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
+  const t = useTranslations("common");
+  const menu = t.raw("menu") as MenuItem[];
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 0);
@@ -85,7 +82,7 @@ const Navbar = ({
               alt={logo.alt}
             />
             <span className="text-lg font-semibold tracking-tighter">
-              {logo.title}
+              {t("studioName")}
             </span>
           </Link>
 

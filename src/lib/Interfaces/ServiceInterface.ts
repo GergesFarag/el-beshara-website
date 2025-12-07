@@ -23,3 +23,8 @@ export interface IService {
   statistics: IServiceStat[];
   action: IServiceAction;
 }
+
+export interface MenuItem {
+  title: string;
+  url: string;
+}
