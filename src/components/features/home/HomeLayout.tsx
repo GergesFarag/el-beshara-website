@@ -2,7 +2,7 @@ import HomeHeroLayout from "./hero/HomeHeroLayout";
 import AboutHomeSectionLayout from "./aboutHome/AboutHomeSectionLayout";
 import ServicesHomeLayout from "./servicesHome/ServicesHomeLayout";
 import FixedHomeImgLayout from "./fixedHomeImg/FixedHomeImgLayout";
-import GalleryHomeLayout from "./gallery/GalleryHomeLayout";
+import GalleryHomeLayout from "./studioHome/StudioHomeLayout";
 import WhyChooseUsLayout from "@/components/shared/whyChooseUs/WhyChooseUsLayout";
 import HomeHero from "./hero/HomeHero";
 

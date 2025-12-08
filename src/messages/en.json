@@ -33,7 +33,7 @@
     ],
     "homeAbout": {
       "title": "About Us",
-      "subtitle":"know more about us",
+      "subtitle": "know more about us",
       "description": "El-Beshara Studio is a creative space where artists find their true sound. Our studio offers everything you need to create industry-standard music.",
       "points": [
         "Professional audio recording using the latest equipment and global quality standards.",
@@ -43,6 +43,28 @@
       ],
       "btnText": "Read More",
       "href": "/about"
+    },
+    "homeStudio": {
+      "sectionLabel": "Our Studio",
+      "title": "Where Sound Comes to Life",
+      "points": [
+        "Professional audio engineering and mixing for all genres.",
+        "High-quality recording sessions for vocals and instruments.",
+        "Music production and arrangement to bring your ideas to life."
+      ],
+      "stats": {
+        "hoursTitle": "Hours of Recording",
+        "hoursFirstDescription": "We have produced and recorded over",
+        "hoursNumber": "500",
+        "hoursSecondDescription": "hours of music for artists",
+
+        "projectsTitle": "Completed Projects",
+        "projectsFirstDescription": "Our team has successfully produced and recorded over",
+        "projectsNumber": "100",
+        "projectsSecondDescription": "music projects"
+      },
+      "btnText": "Explore Our Studio Gallery",
+      "href": "/gallery"
     }
   },
   "ourServices": {
