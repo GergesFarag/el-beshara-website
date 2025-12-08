@@ -233,7 +233,7 @@ const Navbar = ({
         {/* Desktop Navbar */}
         <nav className="hidden md:flex items-center justify-between">
           {/* Logo */}
-          <Link href={logo.url} className={`flex items-center gap-2 ${isRTL ? "flex-row-reverse" : ""}`}>
+          <Link href={logo.url} className={`flex items-center gap-2 `}>
             <Image
               width={40}
               height={40}
@@ -278,7 +278,7 @@ const Navbar = ({
         {/* Mobile Navbar */}
         <div className="flex md:hidden items-center justify-between px-4">
           {/* Mobile Logo */}
-          <Link href={logo.url} className={`flex items-center gap-2 ${isRTL ? "flex-row-reverse" : ""}`}>
+          <Link href={logo.url} className={`flex items-center gap-2 `}>
             <Image
               width={40}
               height={40}
@@ -287,7 +287,7 @@ const Navbar = ({
               alt={logo.alt}
             />
             <span className="text-lg font-semibold tracking-tighter">
-              {logo.title}
+              {t("studioName")}
             </span>
           </Link>
 
@@ -324,14 +324,14 @@ const Navbar = ({
                         className="max-h-8 dark:invert"
                         alt={logo.alt}
                       />
-                      <span>{logo.title}</span>
+                      <span>{t("studioName")}</span>
                     </Link>
                   </SheetTitle>
                 </SheetHeader>
 
                 {/* Mobile Menu Items */}
                 <div className="flex flex-col gap-4 mt-8 px-4">
-                  {displayMenu?.map((item) => (
+                  {menu?.map((item) => (
                     <Link
                       key={item.title}
                       href={item.url}
