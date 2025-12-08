@@ -202,7 +202,13 @@
     "btnText": "Contact Us",
     "href": "/contact"
   },
-
+  "gallery": {
+    "tabs": {
+      "images": "Images",
+      "videos": "Videos",
+      "reels": "Reels"
+    }
+  },
   "common": {
     "menu": [
       { "title": "Home", "url": "/" },

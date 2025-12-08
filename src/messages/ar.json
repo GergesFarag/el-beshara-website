@@ -204,6 +204,13 @@
     "btnText": "تواصل معنا",
     "href": "/contact"
   },
+  "gallery": {
+    "tabs": {
+      "images": "صور",
+      "reels": "ريلز",
+      "videos": "فيديوهات"
+    }
+  },
 
   "common": {
     "menu": [
