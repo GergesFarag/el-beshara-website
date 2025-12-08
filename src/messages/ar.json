@@ -211,7 +211,35 @@
       "videos": "فيديوهات"
     }
   },
-
+  "contact": {
+    "title": "تواصل معنا",
+    "description": "ابقى على تواصل معنا لتسجيل رسالة موسيقية كاملة، او للمكساج او الماسترينج. نحن في انتظارك",
+    "nameInput":{
+      "label": "الاسم",
+      "placeholder": "ادخل الاسم"
+    },
+    "emailInput": {
+      "label": "البريد الالكتروني",
+      "placeholder": "ادخل البريد الالكتروني"
+    },
+    "phoneInput": {
+      "label": "رقم الهاتف",
+      "placeholder": "ادخل رقم الهاتف"
+    },
+    "subjectInput": {
+      "label": "الموضوع",
+      "placeholder": "ادخل الموضوع"
+    },
+    "messageInput": {
+      "label": "الرسالة",
+      "placeholder": "ادخل الرسالة"
+    },
+    "btnText": "ارسال",
+    "successMessage": {
+      "title": "تم الارسال بنجاح",
+      "description": "سيتم التواصل معك قريبا"
+    }
+  },
   "common": {
     "menu": [
       {

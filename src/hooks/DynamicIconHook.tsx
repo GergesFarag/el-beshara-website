@@ -10,7 +10,8 @@ const DynamicIcon = ({ iconName }: { iconName: string }) => {
     const importIcon = async () => {
       try {
         // Try from react-icons/fa6 first (for FaVolumeUp, FaMicrophoneAlt, etc.)
-        const { [iconName as keyof typeof import("react-icons/fa6")]: icon } = await import("react-icons/fa6");
+        const { [iconName as keyof typeof import("react-icons/fa6")]: icon } =
+          await import("react-icons/fa6");
         if (icon) {
           setIcon(() => icon);
           return;
@@ -21,7 +22,8 @@ const DynamicIcon = ({ iconName }: { iconName: string }) => {
 
       try {
         // Try from react-icons/fa
-        const { [iconName as keyof typeof import("react-icons/fa")]: icon } = await import("react-icons/fa");
+        const { [iconName as keyof typeof import("react-icons/fa")]: icon } =
+          await import("react-icons/fa");
         if (icon) {
           setIcon(() => icon);
           return;
@@ -30,6 +32,28 @@ const DynamicIcon = ({ iconName }: { iconName: string }) => {
         console.log(`Icon ${iconName} not found in fa`);
       }
 
+      try {
+        // Try from react-icons/fa
+        const { [iconName as keyof typeof import("react-icons/hi")]: icon } =
+          await import("react-icons/hi");
+        if (icon) {
+          setIcon(() => icon);
+          return;
+        }
+      } catch (error) {
+        console.log(`Icon ${iconName} not found in fa`);
+      }
+      try {
+        // Try from react-icons/fa
+        const { [iconName as keyof typeof import("react-icons/io5")]: icon } =
+          await import("react-icons/io5");
+        if (icon) {
+          setIcon(() => icon);
+          return;
+        }
+      } catch (error) {
+        console.log(`Icon ${iconName} not found in fa`);
+      }
       // Fallback to a default icon
       const { FaQuestion } = await import("react-icons/fa6");
       setIcon(() => FaQuestion);
