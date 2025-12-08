@@ -35,8 +35,8 @@
   "ourServices": {
     "title": "Our Services",
     "description": "Discover how we help artists, worship teams, and creators bring their musical vision to life. From reserving a peaceful studio space to recording powerful vocals and producing a fully mixed and mastered track — we’re here to support every step of your creative journey.",
-    "servicesData": [
-      {
+    "servicesData": {
+      "reserve": {
         "id": 1,
         "title": "Reserve the Studio",
         "subtitle": "A peaceful, creative space designed to inspire worship and excellence.",
@@ -65,9 +65,10 @@
           { "label": "Returning Artists", "value": "90%" },
           { "label": "Studio Capacity", "value": "Up to 12 people" }
         ],
-        "action": { "text": "More Details", "href": "/services/#reserve" }
+        "action": { "text": "More Details", "href": "/services/#reserve" },
+        "toContact": "reserve now"
       },
-      {
+      "record": {
         "id": 2,
         "title": "Record a Song",
         "subtitle": "Turn your worship message into a professionally recorded song.",
@@ -98,7 +99,7 @@
         ],
         "action": { "text": "Start Recording", "href": "/services/#record" }
       },
-      {
+      "mix": {
         "id": 3,
         "title": "Mix & Master Your Song",
         "subtitle": "Deliver a polished, powerful sound ready for any platform.",
@@ -129,7 +130,7 @@
         ],
         "action": { "text": "Mix & Master", "href": "/services/#mix" }
       }
-    ]
+    }
   },
   "common": {
     "menu": [
