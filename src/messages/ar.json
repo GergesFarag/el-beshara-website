@@ -70,7 +70,7 @@
           "text": "المزيد من التفاصيل",
           "href": "/services/#reserve"
         },
-        "toContact":"احجز الان"
+        "toContact": "احجز الان"
       },
       "record": {
         "id": 2,
@@ -102,7 +102,7 @@
           { "label": "رضا الفنانين", "value": "98%" }
         ],
         "action": { "text": "ابدأ التسجيل", "href": "/services/#record" },
-        "toContact":"احجز الان"
+        "toContact": "احجز الان"
       },
       "mix": {
         "id": 3,
@@ -134,7 +134,7 @@
           { "label": "متوسط وقت التسليم", "value": "48 ساعة" }
         ],
         "action": { "text": "المزج والمعالجة", "href": "/services/#mix" },
-        "toContact":"احجز الان"
+        "toContact": "احجز الان"
       }
     }
   },
