@@ -97,7 +97,8 @@
           { "label": "Choirs & Groups", "value": "70+" },
           { "label": "Artist Satisfaction", "value": "98%" }
         ],
-        "action": { "text": "Start Recording", "href": "/services/#record" }
+        "action": { "text": "Start Recording", "href": "/services/#record" },
+        "toContact": "book your session"
       },
       "mix": {
         "id": 3,
@@ -128,7 +129,8 @@
           { "label": "Streaming-Ready Files Delivered", "value": "1000+" },
           { "label": "Average Delivery Time", "value": "48 hours" }
         ],
-        "action": { "text": "Mix & Master", "href": "/services/#mix" }
+        "action": { "text": "Mix & Master", "href": "/services/#mix" },
+        "toContact": "book your session"
       }
     }
   },

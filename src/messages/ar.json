@@ -101,7 +101,8 @@
           { "label": "الجوقات والمجموعات", "value": "70+" },
           { "label": "رضا الفنانين", "value": "98%" }
         ],
-        "action": { "text": "ابدأ التسجيل", "href": "/services/#record" }
+        "action": { "text": "ابدأ التسجيل", "href": "/services/#record" },
+        "toContact":"احجز الان"
       },
       "mix": {
         "id": 3,
@@ -132,7 +133,8 @@
           { "label": "ملفات جاهزة للبث", "value": "1000+" },
           { "label": "متوسط وقت التسليم", "value": "48 ساعة" }
         ],
-        "action": { "text": "المزج والمعالجة", "href": "/services/#mix" }
+        "action": { "text": "المزج والمعالجة", "href": "/services/#mix" },
+        "toContact":"احجز الان"
       }
     }
   },
