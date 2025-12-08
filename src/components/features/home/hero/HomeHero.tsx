@@ -3,13 +3,17 @@
 import { images } from "@/data/images";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, m, motion } from "framer-motion";
 import MyBtn from "@/components/ui/MyBtn";
 import { useTranslations } from "next-intl";
+import { langSelector } from "@/redux/slices/LangSlice";
+import { useSelector } from "react-redux";
 
 const HomeHero = () => {
   const [index, setIndex] = useState(0);
   const [contentIndex, setContentIndex] = useState(0);
+  const { lang } = useSelector(langSelector);
+  const [mounted, setMounted] = useState(false);
 
   const t = useTranslations("home");
   const heroContent = t.raw("homeHero") as {
@@ -22,6 +26,7 @@ const HomeHero = () => {
   const current = heroContent[contentIndex];
 
   useEffect(() => {
+    setMounted(true);
     const interval = setInterval(() => {
       setIndex((prev) => (prev + 1) % images.length);
       setContentIndex((prev) => (prev + 1) % heroContent.length);
@@ -31,9 +36,11 @@ const HomeHero = () => {
   }, []);
 
   return (
-    <div className="relative h-[80vh] mb-20 overflow-hidden">
+    <div
+    dir={mounted && lang === "ar" ? "rtl" : "ltr"}
+    className="relative h-[80vh] mb-20 overflow-hidden">
       {/* Overlay */}
-      <div className="absolute inset-0 bg-radial-[at_90%_70%] from-transparent-[0%] via-transparent-[30%] via-dark-[70%] to-dark z-10"></div>
+      <div  className={`absolute ${mounted && lang === "ar" ? "scale-x-[-1]" : "scale-x-[1]"} inset-0 bg-radial-[at_90%_70%] from-transparent-[0%] via-transparent-[30%] via-dark-[70%] to-dark z-10`}></div>
       {/* Stacked Images */}
       {images.slice(0, index + 1).map((img, i) => (
         <motion.div
@@ -47,7 +54,7 @@ const HomeHero = () => {
         </motion.div>
       ))}
       {/* Smooth Text Animation */}
-  
+
       <div className="absolute inset-0 z-20 flex p-10 ">
         <AnimatePresence mode="wait">
           <motion.div
