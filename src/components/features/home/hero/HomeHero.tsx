@@ -55,7 +55,7 @@ const HomeHero = () => {
       ))}
       {/* Smooth Text Animation */}
 
-      <div className="absolute inset-0 z-20 flex p-10 ">
+      <div className="absolute inset-0 z-20 flex justify-center p-10 ">
         <AnimatePresence mode="wait">
           <motion.div
             key={contentIndex}
@@ -63,7 +63,7 @@ const HomeHero = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -50 }}
             transition={{ duration: 1, ease: "easeOut" }}
-            className=" max-w-xl flex flex-col justify-center  px-4 text-light"
+            className=" max-w-xl flex flex-col justify-center items-center text-center  px-4 text-light"
           >
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
               {current.title}
