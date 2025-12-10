@@ -3,7 +3,6 @@ import MyBtn from "@/components/ui/MyBtn";
 import { loginMethod } from "@/lib/api/auth";
 import { redirect } from "next/navigation";
 import React, { useState } from "react";
-import { tr } from "zod/v4/locales";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -31,7 +30,7 @@ const LoginPage = () => {
       password: trimmedPassword,
     });
 
-    console.log(checkLogin)
+    console.log(checkLogin);
 
     if (checkLogin.success) {
       setMessage({ text: "Login successful! Redirecting...", type: "success" });

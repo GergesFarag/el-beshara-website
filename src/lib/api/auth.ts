@@ -1,4 +1,3 @@
-import { m } from "framer-motion";
 
 export const loginMethod = async ({
   email,
@@ -7,7 +6,6 @@ export const loginMethod = async ({
   email: string;
   password: string;
 }) => {
-  console.log(email, password);
   try {
     const res = await fetch("/api/auth/login", {
       method: "POST",
