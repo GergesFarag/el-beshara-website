@@ -1,37 +1,59 @@
 "use client";
 import MyBtn from "@/components/ui/MyBtn";
+import { loginMethod } from "@/lib/api/auth";
 import { redirect } from "next/navigation";
 import React, { useState } from "react";
+import { tr } from "zod/v4/locales";
 
 const LoginPage = () => {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState<{
     text: string;
     type: "success" | "error";
   } | null>(null);
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     // Clear previous message
     setMessage(null);
 
     // Basic validation
-    if (!username || !password) {
+    if (!email || !password) {
       setMessage({ text: "Please fill in all fields", type: "error" });
       return;
     }
+    // ! main logic
+    const trimmedEmail = email.trim();
+    const trimmedPassword = password.trim();
+    // console.log(trimmedEmail, trimmedPassword);
+    const checkLogin = await loginMethod({
+      email: trimmedEmail,
+      password: trimmedPassword,
+    });
 
-    // Simulate login (replace with actual authentication)
-    if (username === "admin" && password === "password") {
+    console.log(checkLogin)
+
+    if (checkLogin.success) {
       setMessage({ text: "Login successful! Redirecting...", type: "success" });
+
       setTimeout(() => {
-        // Redirect or handle successful login
-        // console.log("Redirecting...");
         redirect("/admin/images");
       }, 1500);
     } else {
-      setMessage({ text: "Invalid username or password", type: "error" });
+      setMessage({ text: checkLogin.message, type: "error" });
     }
+
+    // Simulate login (replace with actual authentication)
+    // if (username === "admin" && password === "password") {
+    //   setMessage({ text: "Login successful! Redirecting...", type: "success" });
+    //   setTimeout(() => {
+    //     // Redirect or handle successful login
+    //     // console.log("Redirecting...");
+    //     redirect("/admin/images");
+    //   }, 1500);
+    // } else {
+    //   setMessage({ text: "Invalid username or password", type: "error" });
+    // }
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
@@ -50,16 +72,16 @@ const LoginPage = () => {
         <div>
           <div className="mb-6">
             <label
-              htmlFor="username"
+              htmlFor="email"
               className="block text-sm font-medium text-background/80 mb-2"
             >
-              Username
+              Email
             </label>
             <input
               type="text"
-              id="username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               onKeyPress={handleKeyPress}
               placeholder="Enter your username"
               autoComplete="username"
@@ -89,9 +111,9 @@ const LoginPage = () => {
           <MyBtn
             onClick={handleLogin}
             text="Sign In"
-            className={`${!username || !password ? "cursor-not-allowed!" : ""}`}
+            className={`${!email || !password ? "cursor-not-allowed!" : ""}`}
             width="full"
-            disabled={!username || !password}
+            disabled={!email || !password}
           />
 
           {message && (

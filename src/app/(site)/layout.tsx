@@ -13,7 +13,6 @@ export default function SiteLayout({
   return (
     <MainProvider>
       <Navbar
-        menu={NavMenuItems}
         className="fixed w-full h-fit inset-0 z-49  "
       />
       <div className=" mb-15">{children}</div>

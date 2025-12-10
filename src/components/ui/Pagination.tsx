@@ -107,7 +107,7 @@ const Pagination = ({
             return (
               <button
                 key={`page-${page}`}
-                onClick={() => handlePageChange(page)}
+                onClick={() => handlePageChange(page as number)}
                 className={`
                 relative flex items-center justify-center w-10 h-10 rounded-xl
                 font-semibold text-sm
