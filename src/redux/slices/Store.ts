@@ -1,10 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 import langReducer from "./LangSlice";
-import adminsSelector from "./AdminsSlice";
+import adminsSlice from "./AdminsSlice";
+import PromotionSlice from "./PromotionsSlice";
 export const store = configureStore({
   reducer: {
     lang: langReducer,
-    admins: adminsSelector,
+    admins: adminsSlice,
+    promotions: PromotionSlice,
   },
 });
 

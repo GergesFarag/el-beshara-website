@@ -43,7 +43,7 @@ export default function AdminTable() {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center min-h-[400px]">
-        <Spinner className="w-8 h-8" />
+        <Spinner className="w-20 h-20" />
       </div>
     );
   }

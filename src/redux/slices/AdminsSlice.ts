@@ -37,7 +37,6 @@ export const getAllAdminsAction = createAsyncThunk(
   }
 );
 
-
 export const deleteAdminAction = createAsyncThunk(
   "admins/deleteAdmin",
   async (id: string) => {
@@ -56,9 +55,12 @@ export const addAdminAction = createAsyncThunk(
         return thunkAPI.rejectWithValue(res.message);
       }
 
-      return res.data; // admin object
-    } catch (err: any) {
-      return thunkAPI.rejectWithValue(err.message);
+      return res.data;
+    } catch (err) {
+      if (err instanceof Error) return thunkAPI.rejectWithValue(err.message);
+      return thunkAPI.rejectWithValue(
+        "An error occurred. Please try again later."
+      );
     }
   }
 );
