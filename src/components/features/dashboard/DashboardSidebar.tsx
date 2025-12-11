@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/sidebar";
 import { FaHome, FaImages } from "react-icons/fa";
 import { GrResources } from "react-icons/gr";
-import { RiAdminLine, RiFolderVideoFill } from "react-icons/ri";
+import { RiAdminLine, RiDiscountPercentFill, RiFolderVideoFill } from "react-icons/ri";
 import { BsFillCameraReelsFill } from "react-icons/bs";
 import { ModeToggle } from "@/components/shared/ModeToggle";
 import { IoChevronBackCircleOutline } from "react-icons/io5";
@@ -52,7 +52,12 @@ const DashboardSidebar = () => {
       title: "reels",
       url: "/admin/reels",
       icon: <BsFillCameraReelsFill />,
-    },
+    },{
+      title:"promotions",
+      url:"/admin/promotions",
+      icon:<RiDiscountPercentFill />
+
+    }
   ];
 
   // Helper function to check if a path is active
