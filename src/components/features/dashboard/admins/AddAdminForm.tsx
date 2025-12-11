@@ -2,10 +2,14 @@
 import MyBtn from "@/components/ui/MyBtn";
 import { Spinner } from "@/components/ui/spinner";
 import { addAdminMethod } from "@/lib/api/admin";
+import { INewAdmin } from "@/lib/Interfaces/AdminInterface";
+import { addAdminAction, adminsSelector } from "@/redux/slices/AdminsSlice";
+import { AppDispatch } from "@/redux/slices/Store";
 import { redirect } from "next/navigation";
 import React, { useState } from "react";
 import { FaEye } from "react-icons/fa";
 import { IoMdEyeOff } from "react-icons/io";
+import { useDispatch, useSelector } from "react-redux";
 
 const AddAdminForm = () => {
   const [email, setEmail] = useState("");
@@ -14,14 +18,17 @@ const AddAdminForm = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState<{
     text: string;
     type: "success" | "error";
   } | null>(null);
 
+  const { isLoading } = useSelector(adminsSelector);
+  const dispatch = useDispatch<AppDispatch>();
+
   const handleAddAdmin = async () => {
-    setIsLoading(true);
+    // setIsLoading(true);
     setMessage(null);
 
     // Validation
@@ -35,27 +42,28 @@ const AddAdminForm = () => {
       return;
     }
 
-    const trimmedEmail = email.trim();
-    const trimmedUsername = username.trim();
-    const trimmedPassword = password.trim();
+    const newAdmin : INewAdmin = {
+      email: email.trim(),
+      username: username.trim(),
+      password: password.trim(),
+    };
 
-    // Call API to add admin
-    const res = await addAdminMethod({
-      email: trimmedEmail,
-      password: trimmedPassword,
-      username: trimmedUsername,
-    });
-    if (res.status === "success") {
-      setMessage({ text: "Admin added successfully!", type: "success" });
-      setEmail("");
-      setPassword("");
-      setUsername("");
-      setConfirmPassword("");
-    } else {
-      setMessage({ text: res.message, type: "error" });
-    }
+    dispatch(addAdminAction(newAdmin))
+      .unwrap()
+      .then(() => {
+        setMessage({ text: "Admin added successfully!", type: "success" });
 
-    setIsLoading(false);
+        setEmail("");
+        setPassword("");
+        setUsername("");
+        setConfirmPassword("");
+      })
+      .catch((err: any) => {
+        setMessage({
+          text: err || "Failed to add admin",
+          type: "error",
+        });
+      });
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {

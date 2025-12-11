@@ -1,6 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { IAdmin } from "@/lib/Interfaces/AdminInterface";
-import { deleteAdminMethod, getAdminsMethod } from "@/lib/api/admin";
+import { IAdmin, INewAdmin } from "@/lib/Interfaces/AdminInterface";
+import {
+  addAdminMethod,
+  deleteAdminMethod,
+  getAdminsMethod,
+} from "@/lib/api/admin";
 import { RootState } from "./Store";
 
 interface IState {
@@ -31,22 +35,59 @@ export const deleteAdminAction = createAsyncThunk(
   }
 );
 
+export const addAdminAction = createAsyncThunk(
+  "admins/addAdmin",
+  async (admin: INewAdmin, thunkAPI) => {
+    try {
+      const res = await addAdminMethod(admin);
+
+      if (res.status !== "success") {
+        return thunkAPI.rejectWithValue(res.message);
+      }
+
+      return res.data; // admin object
+    } catch (err: any) {
+      return thunkAPI.rejectWithValue(err.message);
+    }
+  }
+);
+
 const AdminsSlice = createSlice({
   name: "admins",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
+    // todo => get all admins
     builder.addCase(getAllAdminsAction.pending, (state) => {
       state.isLoading = true;
     });
-    builder.addCase(getAllAdminsAction.fulfilled, (state, { payload }) => {
-      state.admins = payload;
-      state.isLoading = false;
-    });
+    builder.addCase(
+      getAllAdminsAction.fulfilled,
+      (state, { payload }: { payload: IAdmin[] }) => {
+        state.admins = payload;
+        state.isLoading = false;
+      }
+    );
     builder.addCase(getAllAdminsAction.rejected, (state) => {
       state.isLoading = false;
     });
 
+    // todo => add admin
+    builder.addCase(addAdminAction.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(
+      addAdminAction.fulfilled,
+      (state, { payload }: { payload: IAdmin }) => {
+        state.admins.push(payload);
+        state.isLoading = false;
+      }
+    );
+    builder.addCase(addAdminAction.rejected, (state) => {
+      state.isLoading = false;
+    });
+
+    // todo => delete admin
     builder.addCase(deleteAdminAction.pending, (state) => {
       state.isDeleting = true;
     });
