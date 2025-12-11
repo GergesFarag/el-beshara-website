@@ -51,7 +51,6 @@
 //   matcher: ["/admin/:path*", "/admin"],
 // };
 
-
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { jwtDecode } from "jwt-decode";
@@ -66,7 +65,7 @@ export function proxy(req: NextRequest) {
   // If token exists → validate
   if (token) {
     try {
-      const decoded = jwtDecode<{ exp: number }>(token);
+      const decoded = jwtDecode<{ exp: number; username: string }>(token);
 
       // Token expired?
       if (decoded.exp * 1000 < Date.now()) {
@@ -75,6 +74,9 @@ export function proxy(req: NextRequest) {
         res.cookies.delete("isSuperAdmin");
         return res;
       }
+      const res = NextResponse.next();
+      res.cookies.set("username", decoded.username, { path: "/" });
+      return res;
     } catch (err) {
       console.log("Invalid token:", err);
       const res = NextResponse.redirect(new URL("/login", req.url));

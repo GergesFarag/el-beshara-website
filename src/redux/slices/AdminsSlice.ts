@@ -55,7 +55,8 @@ export const addAdminAction = createAsyncThunk(
 const AdminsSlice = createSlice({
   name: "admins",
   initialState,
-  reducers: {},
+  reducers: {
+  },
   extraReducers: (builder) => {
     // todo => get all admins
     builder.addCase(getAllAdminsAction.pending, (state) => {
