@@ -1,28 +1,51 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Trash2 } from "lucide-react";
 import MyBtn from "@/components/ui/MyBtn";
-
+import { deleteAdminMethod, getAdminsMethod } from "@/lib/api/admin";
+interface IAdmin {
+  _id: string;
+  email: string;
+  username: string;
+}
 export default function AdminTable() {
-  const [admins, setAdmins] = useState([
-    { id: 1, email: "admin@example.com" },
-    { id: 2, email: "john.doe@company.com" },
-    { id: 3, email: "sarah.smith@business.com" },
-    { id: 4, email: "mike.jones@enterprise.com" },
-  ]);
+  const [admins, setAdmins] = useState<IAdmin[]>([]);
 
-  const handleDelete = (id: number) => {
-    setAdmins(admins.filter((admin) => admin.id !== id));
+  const [isLoading, setIsLoading] = useState(false);
+  useEffect(() => {
+    const getAllAdmins = async () => {
+      setIsLoading(true);
+      const { data: admins } = await getAdminsMethod();
+      console.log("admins", admins);
+      setAdmins(admins);
+      setIsLoading(false);
+    };
+
+    getAllAdmins();
+    return () => {};
+  }, []);
+
+  const handleDelete = (id: string) => {
+    deleteAdminMethod(id);
   };
 
-  return (
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  return isLoading ? (
+    <div>Loading...</div>
+  ) : (
     <div className="">
-      <div className=" max-w-5xl mx-auto">
+      <div className=" max-w-4xl mx-auto">
         <div className="bg-secondary/20 rounded-lg shadow overflow-hidden">
           <table className="min-w-full divide-y divide-primary">
             <thead className="bg-dark dark:bg-secondary text-light">
               <tr>
+                <th className="px-6 py-3 text-left text-xs font-medium  uppercase tracking-wider">
+                  user Name
+                </th>
                 <th className="px-6 py-3 text-left text-xs font-medium  uppercase tracking-wider">
                   Email
                 </th>
@@ -33,13 +56,16 @@ export default function AdminTable() {
             </thead>
             <tbody className="bg-secondary/20 divide-y divide-primary/50">
               {admins.map((admin) => (
-                <tr key={admin.id} className="hover:bg-secondary">
+                <tr key={admin._id} className="hover:bg-secondary">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-foreground">
+                    {admin.username}
+                  </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-foreground">
                     {admin.email}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-right text-sm">
                     <MyBtn
-                      onClick={() => handleDelete(admin.id)}
+                      onClick={() => handleDelete(admin._id)}
                       variant="primary"
                       outline
                       text="Delete"

@@ -18,3 +18,35 @@ export const addAdminMethod = async (data: {
     };
   }
 };
+
+export const getAdminsMethod = async () => {
+  try {
+    const res = await fetch("/api/admin", {
+      method: "GET",
+    })
+    const result = await res.json();
+    return result;
+  } catch (err) {
+    if (err instanceof Error) return { success: false, message: err.message };
+    return {
+      success: false,
+      message: "An error occurred. Please try again later.",
+    };
+  }
+};
+
+export const deleteAdminMethod = async (id: string) => {
+  try {
+    const res = await fetch(`/api/admin/${id}`, {
+      method: "DELETE",
+    })
+    const result = await res.json();
+    return result;
+  } catch (err) {
+    if (err instanceof Error) return { success: false, message: err.message };
+    return {
+      success: false,
+      message: "An error occurred. Please try again later.",
+    };
+  }
+};
