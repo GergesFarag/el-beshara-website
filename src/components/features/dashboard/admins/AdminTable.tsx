@@ -4,27 +4,19 @@ import { useEffect, useState } from "react";
 import { Trash2 } from "lucide-react";
 import MyBtn from "@/components/ui/MyBtn";
 import { deleteAdminMethod, getAdminsMethod } from "@/lib/api/admin";
-interface IAdmin {
-  _id: string;
-  email: string;
-  username: string;
-}
+import { IAdmin } from "@/lib/Interfaces/AdminInterface";
+import { useDispatch, useSelector } from "react-redux";
+import { adminsSelector, getAllAdminsAction } from "@/redux/slices/AdminsSlice";
+import { AppDispatch } from "@/redux/slices/Store";
+
 export default function AdminTable() {
-  const [admins, setAdmins] = useState<IAdmin[]>([]);
+  const { admins, isLoading } = useSelector(adminsSelector);
+  const dispatch = useDispatch<AppDispatch>();
 
-  const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
-    const getAllAdmins = async () => {
-      setIsLoading(true);
-      const res = await getAdminsMethod();
-      const admins = res.data;
-      setAdmins(admins);
-      setIsLoading(false);
-    };
-
-    getAllAdmins();
+    dispatch(getAllAdminsAction());
     return () => {};
-  }, []);
+  }, [dispatch]);
 
   const handleDelete = async (id: string) => {
     deleteAdminMethod(id);
