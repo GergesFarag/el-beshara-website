@@ -1,11 +1,20 @@
 export const addAdminMethod = async (data: {
   email: string;
-  password: string;
   username: string;
+  password: string;
 }) => {
-  const res = await fetch("/api/admins", {
-    method: "POST",
-    body: JSON.stringify(data),
-  }).then((res) => res.json());
-  return res;
+  try {
+    const res = await fetch("/api/admin", {
+      method: "POST",
+      body: JSON.stringify(data),
+    })
+    const result = await res.json();
+    return result;
+  } catch (err) {
+    if (err instanceof Error) return { success: false, message: err.message };
+    return {
+      success: false,
+      message: "An error occurred. Please try again later.",
+    };
+  }
 };

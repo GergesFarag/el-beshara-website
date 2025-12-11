@@ -1,5 +1,6 @@
 "use client";
 import MyBtn from "@/components/ui/MyBtn";
+import { Spinner } from "@/components/ui/spinner";
 import { addAdminMethod } from "@/lib/api/admin";
 import { redirect } from "next/navigation";
 import React, { useState } from "react";
@@ -13,12 +14,14 @@ const AddAdminForm = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState<{
     text: string;
     type: "success" | "error";
   } | null>(null);
 
   const handleAddAdmin = async () => {
+    setIsLoading(true);
     setMessage(null);
 
     // Validation
@@ -42,16 +45,17 @@ const AddAdminForm = () => {
       password: trimmedPassword,
       username: trimmedUsername,
     });
-    if (res.success) {
+    if (res.status === "success") {
       setMessage({ text: "Admin added successfully!", type: "success" });
       setEmail("");
       setPassword("");
       setUsername("");
       setConfirmPassword("");
-      redirect("/admin/admins");
     } else {
       setMessage({ text: res.message, type: "error" });
     }
+
+    setIsLoading(false);
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
@@ -68,7 +72,10 @@ const AddAdminForm = () => {
         <div className="space-y-6">
           {/* username */}
           <div>
-            <label htmlFor="username" className="block text-sm font-medium text-background/80 mb-2">
+            <label
+              htmlFor="username"
+              className="block text-sm font-medium text-background/80 mb-2"
+            >
               Username
             </label>
             <input
@@ -83,7 +90,10 @@ const AddAdminForm = () => {
           </div>
           {/* Email */}
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-background/80 mb-2">
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium text-background/80 mb-2"
+            >
               Email
             </label>
             <input
@@ -99,7 +109,10 @@ const AddAdminForm = () => {
 
           {/* Password */}
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-background/80 mb-2">
+            <label
+              htmlFor="password"
+              className="block text-sm font-medium text-background/80 mb-2"
+            >
               Password
             </label>
             <div className="relative">
@@ -124,7 +137,10 @@ const AddAdminForm = () => {
 
           {/* Confirm Password */}
           <div>
-            <label htmlFor="confirmPassword" className="block text-sm font-medium text-background/80 mb-2">
+            <label
+              htmlFor="confirmPassword"
+              className="block text-sm font-medium text-background/80 mb-2"
+            >
               Confirm Password
             </label>
             <div className="relative">
@@ -149,7 +165,7 @@ const AddAdminForm = () => {
 
           <MyBtn
             onClick={handleAddAdmin}
-            text="Add Admin"
+            text={isLoading ? <Spinner /> : "Add Admin"}
             width="full"
             disabled={!email || !password || !confirmPassword}
             className={`${
