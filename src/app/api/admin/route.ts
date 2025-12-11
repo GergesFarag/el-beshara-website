@@ -44,6 +44,7 @@ export async function GET() {
       },
     });
     const result = await res.json();
+    console.log("result", result);
 
     if (!res.ok || result.status !== "success") {
       return NextResponse.json(
@@ -61,32 +62,4 @@ export async function GET() {
   }
 }
 
-export async function DELETE(req: Request) {
-  try {
-    const { id } = await req.json();
-    const cookiesObj = await cookies();
-    const token = cookiesObj.get("token")?.value;
-    const res = await fetch(`${process.env.SERVERBASE}/admin/${id}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    const result = await res.json();
 
-    if (!res.ok || result.status !== "success") {
-      return NextResponse.json(
-        { success: false, message: result.message || "Delete admin failed" },
-        { status: res.status }
-      );
-    }
-    return NextResponse.json(result);
-  } catch (error) {
-    console.log("an error occurred", error);
-    return NextResponse.json(
-      { success: false, message: "Server error" },
-      { status: 500 }
-    );
-  }
-}

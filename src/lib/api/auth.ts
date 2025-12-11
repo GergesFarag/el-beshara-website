@@ -14,7 +14,7 @@ export const loginMethod = async ({
 
     const result = await res.json();
 
-    return result; // خلاص الريسبونس جاهز success, message, data
+    return result; 
   } catch (err: unknown) {
     if (err instanceof Error) return { success: false, message: err.message };
     return {

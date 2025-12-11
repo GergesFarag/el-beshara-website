@@ -16,8 +16,8 @@ export default function AdminTable() {
   useEffect(() => {
     const getAllAdmins = async () => {
       setIsLoading(true);
-      const { data: admins } = await getAdminsMethod();
-      console.log("admins", admins);
+      const res = await getAdminsMethod();
+      const admins = res.data;
       setAdmins(admins);
       setIsLoading(false);
     };
@@ -26,7 +26,7 @@ export default function AdminTable() {
     return () => {};
   }, []);
 
-  const handleDelete = (id: string) => {
+  const handleDelete = async (id: string) => {
     deleteAdminMethod(id);
   };
 

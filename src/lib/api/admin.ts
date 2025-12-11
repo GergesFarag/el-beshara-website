@@ -25,6 +25,8 @@ export const getAdminsMethod = async () => {
       method: "GET",
     })
     const result = await res.json();
+  
+    console.log("result", result);
     return result;
   } catch (err) {
     if (err instanceof Error) return { success: false, message: err.message };

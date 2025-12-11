@@ -27,11 +27,16 @@ export async function POST(req: Request) {
       data: result.data,
     });
 
-    res.cookies.set("token", result.data, {
+    res.cookies.set("token", result.data.accessToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "strict",
-      maxAge: 60 * 60 * 24 * 7,
+    });
+
+    res.cookies.set("isSuperAdmin", result.data.isSuperAdmin, {
+      httpOnly: false,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
     });
 
     return res;
