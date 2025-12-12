@@ -5,12 +5,16 @@ import {
 } from "@/redux/slices/PromotionsSlice";
 import PromotionDashboardCard from "./PromotionDashboardCard";
 import { useDispatch, useSelector } from "react-redux";
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { AppDispatch } from "@/redux/slices/Store";
 import { Spinner } from "@/components/ui/spinner";
 import Pagination from "@/components/ui/Pagination";
+import EditPromotionForm from "./EditPromotionForm";
+import { IPromotionInterface } from "@/lib/Interfaces/PromotionInterface";
 
 const PromotionSection = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedPromotion, setSelectedPromotion] = useState<IPromotionInterface >({});
   const { promotions, isLoading, meta } = useSelector(promotionsSelector);
   const dispatch = useDispatch<AppDispatch>();
 
@@ -24,6 +28,11 @@ const PromotionSection = () => {
   useEffect(() => {
     fetchPromotions(meta.page);
   }, [fetchPromotions, meta.page]);
+
+  const handleEdit = (promotion:IPromotionInterface) => {
+    setSelectedPromotion(promotion);
+    setIsOpen(true);
+  };
 
   if (isLoading) {
     return (
@@ -45,7 +54,7 @@ const PromotionSection = () => {
     <div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
         {promotions.map((promotion) => (
-          <PromotionDashboardCard {...promotion} key={promotion._id} />
+          <PromotionDashboardCard onEdit={() => handleEdit(promotion)} {...promotion} key={promotion._id} />
         ))}
       </div>
 
@@ -56,6 +65,7 @@ const PromotionSection = () => {
           onPageChange={fetchPromotions}
         />
       )}
+      <EditPromotionForm isOpen={isOpen} setIsOpen={setIsOpen} onEdit={() => {}} selectedPromotion={selectedPromotion} />
     </div>
   );
 };

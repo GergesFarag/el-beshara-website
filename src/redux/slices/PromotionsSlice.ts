@@ -5,6 +5,7 @@ import {
   addPromotionMethod,
   deletePromotionMethod,
   getPromotionsMethod,
+  updatePromotionMethod,
 } from "@/lib/api/promotions";
 import { IMeta } from "@/lib/Interfaces/metaInterface";
 
@@ -70,6 +71,7 @@ export const deletePromotionAction = createAsyncThunk(
   async (id: string, thunkAPI) => {
     try {
       const res = await deletePromotionMethod(id);
+      console.log(res);
       if (res.status !== "success") {
         return thunkAPI.rejectWithValue(res.message);
       }
@@ -83,6 +85,23 @@ export const deletePromotionAction = createAsyncThunk(
   }
 );
 
+export const updatePromotionAction = createAsyncThunk(
+  "promotions/updatePromotion",
+  async (data: IPromotionInterface, thunkAPI) => {
+    try {
+      const res = await updatePromotionMethod(data);
+      if (res.status !== "success") {
+        return thunkAPI.rejectWithValue(res.message);
+      }
+      return res;
+    } catch (err) {
+      if (err instanceof Error) return thunkAPI.rejectWithValue(err.message);
+      return thunkAPI.rejectWithValue(
+        "An error occurred. Please try again later."
+      );
+    }
+  }
+);
 const PromotionsSlice = createSlice({
   name: "promotions",
   initialState,
@@ -119,6 +138,24 @@ const PromotionsSlice = createSlice({
       state.promotions = state.promotions.filter(
         (promotion) => promotion._id !== action.payload
       );
+    });
+
+    // todo => update promotion
+
+    builder.addCase(updatePromotionAction.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(updatePromotionAction.fulfilled, (state, action) => {
+      state.promotions = state.promotions.map((promotion) => {
+        if (promotion._id === action.payload.data._id) {
+          return action.payload.data;
+        }
+        return promotion;
+      });
+      state.isLoading = false;
+    });
+    builder.addCase(updatePromotionAction.rejected, (state) => {
+      state.isLoading = false;
     });
   },
 });

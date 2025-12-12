@@ -279,6 +279,11 @@
       "offer":"Offer",
       "scroll":"Scroll To See More Offers",
       "stayTuned":"Stay Tuned"
+    },
+    "card":{
+      "btnText":"Get the Offer",
+      "active":"Active",
+      "remaining":"days left"
     }
   }
 }

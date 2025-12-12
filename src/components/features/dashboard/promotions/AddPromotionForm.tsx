@@ -46,7 +46,7 @@ const AddPromotionForm = () => {
         setValidFrom("");
         setValidTo("");
       })
-      .catch((err: any) => {
+      .catch((err) => {
         setMessage({
           text: err || "Failed to add promotion",
           type: "error",

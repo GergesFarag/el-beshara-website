@@ -15,7 +15,7 @@ export async function POST(req: Request) {
       body: JSON.stringify({ title, description, validFrom, validTo }),
     });
     const result = await res.json();
-    console.log("result from post promotion route", result);
+    // console.log("result from post promotion route", result);
 
     if (!res.ok || result.status !== "success") {
       return NextResponse.json(

@@ -2,6 +2,7 @@ import React from "react";
 import { Calendar, Clock, Sparkles, TrendingUp } from "lucide-react";
 import MyBtn from "@/components/ui/MyBtn";
 import { CiDiscount1 } from "react-icons/ci";
+import { useTranslations } from "next-intl";
 
 const PromotionCard = ({
   _id = "promo-001",
@@ -10,6 +11,7 @@ const PromotionCard = ({
   validFrom = "2025-12-11T21:31:11.838Z",
   validTo = "2025-12-31T23:59:59.999Z",
 }) => {
+  const t = useTranslations("promotion.card");
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     return date.toLocaleDateString("en-US", {
@@ -53,14 +55,14 @@ const PromotionCard = ({
               {isActive() && (
                 <span className="flex items-center gap-1.5 bg-green-500 text-white text-xs font-semibold px-2.5 py-1 rounded-md shadow-sm">
                   <Sparkles className="w-3 h-3" />
-                  Active
+                  {t("active")}
                 </span>
               )}
               
               {isActive() && getDaysRemaining() > 0 && (
                 <span className="flex items-center gap-1.5 bg-amber-100 text-amber-800 text-xs font-semibold px-2.5 py-1 rounded-md border border-amber-200">
                   <TrendingUp className="w-3 h-3" />
-                  {getDaysRemaining()}d left
+                {getDaysRemaining()} {t("remaining")}
                 </span>
               )}
             </div>
@@ -94,7 +96,7 @@ const PromotionCard = ({
 
         {/* Footer Section */}
         <div className="p-5 pt-0">
-          <MyBtn text="Apply" href={`/contact`} variant="primary" width="full" />
+          <MyBtn text={t("btnText")} href={`/contact`} variant="primary" width="full" />
         </div>
       </div>
     </div>
