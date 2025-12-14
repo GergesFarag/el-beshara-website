@@ -11,11 +11,24 @@
     width: var(--myWidth);
   }
 }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.25s ease-out;
+}
+
 
 * {
   scroll-behavior: smooth;
+  
 }
-
+*::selection {
+  background-color: var(--dark);
+  color: var(--light);
+}
 .animated-underline {
   @apply before:content-[''] 
     before:absolute 
@@ -85,7 +98,7 @@
   --popover-foreground: #f2f5fa;
   --primary: #a90015;
   --primary-foreground: #f2f5fa;
-  --secondary: #ced2dc;
+  --secondary: #e5e8f1;
   --secondary-foreground: #1c2826;
   --sidebar: #ced2dc;
   --sidebar-foreground: #1c2826;

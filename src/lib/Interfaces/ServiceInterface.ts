@@ -10,7 +10,7 @@ export interface IServiceAction {
 
 export interface IPoints{
   label: string;
-  icon: string;
+  icon: string ;
 }
 
 export interface IService {

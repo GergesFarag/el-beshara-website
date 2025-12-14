@@ -14,16 +14,28 @@ import {
 } from "@/components/ui/sidebar";
 import { FaHome, FaImages } from "react-icons/fa";
 import { GrResources } from "react-icons/gr";
-import { RiAdminLine, RiFolderVideoFill } from "react-icons/ri";
+import { RiAdminLine, RiDiscountPercentFill, RiFolderVideoFill } from "react-icons/ri";
 import { BsFillCameraReelsFill } from "react-icons/bs";
 import { ModeToggle } from "@/components/shared/ModeToggle";
 import { IoChevronBackCircleOutline } from "react-icons/io5";
 import { MdAdminPanelSettings } from "react-icons/md";
 import Link from "next/link";
+import Cookies from "js-cookie";
+import { useEffect, useState } from "react";
 
 const DashboardSidebar = () => {
   // Get current pathname using Next.js hook
   const pathname = usePathname();
+  const [isSuperAdmin, setIsSuperAdmin] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    const updateIsSuperAdmin = async () => {
+      const value =  Cookies.get("isSuperAdmin") === "true";
+      setIsSuperAdmin(value);
+    };
+
+    updateIsSuperAdmin();
+  }, []);
 
   const Items = [
     {
@@ -40,7 +52,12 @@ const DashboardSidebar = () => {
       title: "reels",
       url: "/admin/reels",
       icon: <BsFillCameraReelsFill />,
-    },
+    },{
+      title:"promotions",
+      url:"/admin/promotions",
+      icon:<RiDiscountPercentFill />
+
+    }
   ];
 
   // Helper function to check if a path is active
@@ -66,7 +83,7 @@ const DashboardSidebar = () => {
                   <SidebarMenuButton
                     asChild
                     tooltip={"Home"}
-                      className="text-lg data-[active=true]:bg-primary data-[active=true]:text-primary-foreground"
+                    className="text-lg data-[active=true]:bg-primary data-[active=true]:text-primary-foreground"
                     isActive={isPathActive("/")}
                   >
                     <Link href={"/"} className="">
@@ -107,31 +124,33 @@ const DashboardSidebar = () => {
             </SidebarGroupContent>
           </SidebarGroup>
 
-          <SidebarGroup>
-            <SidebarGroupLabel className="text-primary text-md ">
-              <RiAdminLine className="mr-2" />
-              Admins & Users
-            </SidebarGroupLabel>
-            <SidebarGroupContent>
-              <SidebarMenu>
-                <SidebarMenuItem>
-                  <SidebarMenuButton
-                    asChild
-                    tooltip={"Admins"}
+          {isSuperAdmin && (
+            <SidebarGroup>
+              <SidebarGroupLabel className="text-primary text-md my-5">
+                <RiAdminLine className="mr-2" />
+                Admins Management
+              </SidebarGroupLabel>
+              <SidebarGroupContent>
+                <SidebarMenu>
+                  <SidebarMenuItem>
+                    <SidebarMenuButton
+                      asChild
+                      tooltip={"Admins"}
                       className="text-lg data-[active=true]:bg-primary data-[active=true]:text-primary-foreground"
-                    isActive={isPathActive("/admin/admins")}
-                  >
-                    <Link href={"/admin/admins"}>
-                      <span className="text-xl">
-                        <MdAdminPanelSettings size={25} />
-                      </span>
-                      <span>Admins</span>
-                    </Link>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              </SidebarMenu>
-            </SidebarGroupContent>
-          </SidebarGroup>
+                      isActive={isPathActive("/admin/admins")}
+                    >
+                      <Link href={"/admin/admins"}>
+                        <span className="text-xl">
+                          <MdAdminPanelSettings size={25} />
+                        </span>
+                        <span>Admins</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                </SidebarMenu>
+              </SidebarGroupContent>
+            </SidebarGroup>
+          )}
         </SidebarContent>
       </Sidebar>
     </div>

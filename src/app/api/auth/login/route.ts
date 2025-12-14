@@ -1,0 +1,50 @@
+
+import { NextResponse } from "next/server";
+
+export async function POST(req: Request) {
+  try {
+    const { email, password } = await req.json();
+
+    const response = await fetch(`${process.env.SERVERBASE}/auth/login`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password }),
+    });
+
+    const result = await response.json();
+
+    if (!response.ok || result.status !== "success") {
+      return NextResponse.json(
+        { success: false, message: result.message || "Login failed" },
+        { status: response.status }
+      );
+    }
+
+    // Set Cookie
+    const res = NextResponse.json({
+      success: true,
+      message: "Login successful",
+      data: result.data,
+    });
+
+    res.cookies.set("token", result.data.accessToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+    });
+
+    res.cookies.set("isSuperAdmin", result.data.isSuperAdmin, {
+      httpOnly: false,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+    });
+
+    return res;
+  } catch (err) {
+    console.error("An error occurred:", err);
+    return NextResponse.json(
+      { success: false, message: "Server error" },
+      { status: 500 }
+    );
+  }
+}

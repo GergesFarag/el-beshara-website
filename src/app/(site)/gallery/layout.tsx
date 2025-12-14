@@ -6,11 +6,8 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div>
       <PageHero />
-      <GalleryTabs/>
-      <div className="my-10 w-[80%] mx-auto " >
-
-      {children}
-      </div>
+      <GalleryTabs />
+      <div className="my-10 w-[80%] mx-auto ">{children}</div>
     </div>
   );
 };

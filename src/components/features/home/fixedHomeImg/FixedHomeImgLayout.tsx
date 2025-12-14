@@ -1,3 +1,4 @@
+import Animate from "@/components/ui/Animate";
 import { useTranslations } from "next-intl";
 
 const FixedHomeImgLayout = () => {
@@ -9,9 +10,11 @@ const FixedHomeImgLayout = () => {
 
       {/* Overlay content */}
       <div className="relative overflow-hidden z-10 flex justify-center bg-dark/50 backdrop-blur-[2px] items-center h-full ">
+      <Animate className="text-center" >
         <h1 className="text-dark-foreground text-3xl sm:text-5xl md:text-6xl font-bold">
           {t("studioName")}
         </h1>
+        </Animate>
       </div>
     </div>
   );

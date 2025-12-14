@@ -6,7 +6,7 @@ import React from "react";
 type IBtnVariant = "primary" | "secondary" | "light" | "dark";
 
 interface IBtn {
-  text: string | React.ReactNode;
+  text?: string | React.ReactNode;
   onClick?: () => void;
   href?: string;
   variant?: IBtnVariant;
@@ -16,6 +16,7 @@ interface IBtn {
   width?: "fit" | "full" | "auto";
   type?: "button" | "submit" | "reset";
   disabled?: boolean;
+  children?: React.ReactNode;
 }
 
 const CheckVariant = (variant?: IBtnVariant, outline?: boolean) => {
@@ -59,6 +60,7 @@ const MyBtn = ({
   outline = false,
   type = "button",
   disabled = false,
+  children
 }: IBtn) => {
   const router = useRouter();
 
@@ -81,6 +83,7 @@ const MyBtn = ({
         </span>
       )}
       {text}
+      {children}
     </button>
   );
 };
