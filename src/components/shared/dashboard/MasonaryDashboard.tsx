@@ -321,6 +321,24 @@ const MasonryDashboard: React.FC<MasonryDashboardProps> = ({
             />
           </div>
         );
+  //     case "video":
+  // return (
+  //   <div className="absolute inset-0 rounded-[10px] overflow-hidden">
+  //     <video
+  //       src={item.url}
+  //       className="w-full h-full object-cover rounded-[10px]"
+  //       muted
+  //       loop
+  //       playsInline
+  //       onMouseEnter={(e) => e.currentTarget.play()}
+  //       onMouseLeave={(e) => {
+  //         e.currentTarget.pause();
+  //         e.currentTarget.currentTime = 0;
+  //       }}
+  //       onClick={(e) => e.stopPropagation()}
+  //     />
+  //   </div>
+  // );
       case "audio":
         return (
           <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-purple-500 to-pink-500 rounded-[10px] p-4">
@@ -430,7 +448,7 @@ const MasonryDashboard: React.FC<MasonryDashboardProps> = ({
               </div>
             )}
             
-            {popupMedia.type === "video" && (
+            {/* {popupMedia.type === "video" && (
               <div className="rounded-lg shadow-2xl overflow-hidden">
                 <CldVideoPlayer
                   src={popupMedia.public_id}
@@ -438,7 +456,17 @@ const MasonryDashboard: React.FC<MasonryDashboardProps> = ({
                   height="1080"
                 />
               </div>
-            )}
+            )} */}
+            {popupMedia.type === "video" && (
+  <div className="rounded-lg shadow-2xl overflow-hidden max-w-[90vw] max-h-[90vh]">
+    <video
+      src={popupMedia.url}
+      controls
+      autoPlay
+      className="max-w-[90vw] max-h-[90vh] object-contain"
+    />
+  </div>
+)}
             
             {popupMedia.type === "audio" && (
               <div className="bg-gradient-to-br from-purple-600 to-pink-600 rounded-lg shadow-2xl p-8 flex flex-col items-center justify-center min-w-[400px]">
