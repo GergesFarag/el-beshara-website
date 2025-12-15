@@ -20,7 +20,6 @@ const Page = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { images, meta, isLoading } = useSelector(imgSelector);
 
-  console.log(images);
   const fetchImages = useCallback(
     (page: number) => {
       dispatch(getImagesAction({ page, limit: 20 }));
