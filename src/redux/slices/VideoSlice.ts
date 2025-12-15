@@ -2,11 +2,10 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "./Store";
 import { IImage, IMediaItem } from "@/lib/Interfaces/ImgInterface";
 import {
-  AddImageMethod,
-  deleteImageMethod,
-  getImagesMethod,
-} from "@/lib/api/img";
-import { AddVideoMethod, getVideosMethod } from "@/lib/api/video";
+  AddVideoMethod,
+  deleteVideoMethod,
+  getVideosMethod,
+} from "@/lib/api/video";
 
 interface IState {
   videos: IMediaItem[];
@@ -58,29 +57,29 @@ export const getVideosAction = createAsyncThunk(
   }
 );
 
-// export const deleteImgsAction = createAsyncThunk(
-//   "img/deleteImgs",
-//   async (ids: string[]) => {
-//     await deleteImageMethod(ids);
-//     return ids;
-//   }
-// );
+export const deleteVideosAction = createAsyncThunk(
+  "img/deleteVideo",
+  async (ids: string[]) => {
+    await deleteVideoMethod(ids);
+    return ids;
+  }
+);
 
-// export const deleteOneImgAction = createAsyncThunk(
-//   "img/deleteOneImg",
-//   async (id: string) => {
-//     await deleteImageMethod([id]);
-//     return id;
-//   }
-// );
+export const deleteOneVideoAction = createAsyncThunk(
+  "img/deleteOneVideo",
+  async (id: string) => {
+    await deleteVideoMethod([id]);
+    return id;
+  }
+);
 
 const VideoSlice = createSlice({
   name: "video",
   initialState,
   reducers: {
-    // setSelectedImages: (state, action) => {
-    //   state.selectedVideos = action.payload;
-    // },
+    setSelectedVideos: (state, action) => {
+      state.selectedVideos = action.payload;
+    },
   },
   extraReducers: (builder) => {
     // todo => add images
@@ -88,7 +87,7 @@ const VideoSlice = createSlice({
       state.isLoading = true;
     });
     builder.addCase(AddVideoAction.fulfilled, (state, action) => {
-      state.videos.push(action.payload.data);
+      state.videos.unshift(action.payload.data);
       state.isLoading = false;
     });
     builder.addCase(AddVideoAction.rejected, (state) => {
@@ -109,36 +108,33 @@ const VideoSlice = createSlice({
     });
 
     // todo => delete images
-    // builder.addCase(deleteImgsAction.pending, (state) => {
-    //   state.isLoading = true;
-    // });
-    // builder.addCase(deleteImgsAction.fulfilled, (state, action) => {
-    //   state.videos = state.videos.filter(
-    //     (img) => !action.payload.includes(img._id)
-    //   );
-    //   state.isLoading = false;
-    // });
-    // builder.addCase(deleteImgsAction.rejected, (state) => {
-    //   state.isLoading = false;
-    // });
+    builder.addCase(deleteVideosAction.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(deleteVideosAction.fulfilled, (state, action) => {
+      state.videos = state.videos.filter(
+        (img) => !action.payload.includes(img._id)
+      );
+      state.isLoading = false;
+    });
+    builder.addCase(deleteVideosAction.rejected, (state) => {
+      state.isLoading = false;
+    });
 
     // todo => delete one image
-    // builder.addCase(deleteOneImgAction.pending, (state) => {
-    //   state.isLoading = true;
-    // });
-    // builder.addCase(deleteOneImgAction.fulfilled, (state, action) => {
-    //   state.videos = state.videos.filter((img) => img._id !== action.payload);
-    //   state.selectedVideos = state.selectedVideos.filter(
-    //     (id) => id !== action.payload
-    //   );
-    //   state.isLoading = false;
-    // });
-    // builder.addCase(deleteOneImgAction.rejected, (state) => {
-    //   state.isLoading = false;
-    // });
+    builder.addCase(deleteOneVideoAction.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(deleteOneVideoAction.fulfilled, (state, action) => {
+      state.videos = state.videos.filter((img) => img._id !== action.payload);
+      state.isLoading = false;
+    });
+    builder.addCase(deleteOneVideoAction.rejected, (state) => {
+      state.isLoading = false;
+    });
   },
 });
 
-export const {  } = VideoSlice.actions;
+export const { setSelectedVideos } = VideoSlice.actions;
 export const videoSelector = (state: RootState) => state.video;
 export default VideoSlice.reducer;
