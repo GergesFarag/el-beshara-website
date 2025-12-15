@@ -26,18 +26,25 @@ export async function POST(req: Request) {
   }
 }
 
-export async function GET() {
+export async function GET(req: Request) {
   const cookiesObj = await cookies();
   const token = cookiesObj.get("token")?.value;
 
+  const url = new URL(req.url);
+  const page = Number(url.searchParams.get("page") || 1);
+  const limit = Number(url.searchParams.get("limit") || 5);
+
   try {
-    const res = await fetch(`${process.env.SERVERBASE}/gallery/images`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const res = await fetch(
+      `${process.env.SERVERBASE}/gallery/images/?page=${page}&limit=${limit}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
     const result = await res.json();
     return NextResponse.json(result);
   } catch (err) {

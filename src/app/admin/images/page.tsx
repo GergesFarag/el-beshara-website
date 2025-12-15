@@ -1,20 +1,38 @@
 "use client";
 import DashboardHero from "@/components/shared/dashboard/DashboardHero";
 import MasonryDashboard from "@/components/shared/dashboard/MasonaryDashboard";
-import MyBtn from "@/components/ui/MyBtn";
+// import MyBtn from "@/components/ui/MyBtn";
 import Pagination from "@/components/ui/Pagination";
-import { images } from "@/data/images";
+import { Spinner } from "@/components/ui/spinner";
+// import { images } from "@/data/images";
 import { IImage } from "@/lib/Interfaces/ImgInterface";
-import { AddImageAction } from "@/redux/slices/ImagesSlice";
+import {
+  AddImageAction,
+  getImagesAction,
+  imgSelector,
+} from "@/redux/slices/ImagesSlice";
 import { AppDispatch } from "@/redux/slices/Store";
-import { url } from "inspector";
 import { CldUploadWidget } from "next-cloudinary";
-import { useDispatch } from "react-redux";
+import { useCallback, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 const Page = () => {
   const dispatch = useDispatch<AppDispatch>();
+  const { images, meta, isLoading } = useSelector(imgSelector);
+
+  console.log(images);
+  const fetchImages = useCallback(
+    (page: number) => {
+      dispatch(getImagesAction({ page, limit: 20 }));
+    },
+    [dispatch]
+  );
+
+  useEffect(() => {
+    fetchImages(meta.page);
+  }, [fetchImages, meta.page]);
+
   const handleAddImg = (data) => {
-    console.log(data)
     const { public_id, secure_url } = data;
     const img: IImage = {
       url: secure_url,
@@ -23,6 +41,14 @@ const Page = () => {
     };
     dispatch(AddImageAction(img));
   };
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center min-h-[400px]">
+        <Spinner className="w-20 h-20" />
+      </div>
+    );
+  }
   return (
     <div>
       <div className="space-y-10">
@@ -31,7 +57,6 @@ const Page = () => {
         <CldUploadWidget
           signatureEndpoint="/api/cloudinary/signature"
           onSuccess={(result) => {
-            console.log("result", result.info);
             handleAddImg(result.info);
           }}
           onError={(err) => console.log("Error:", err)}
@@ -40,13 +65,17 @@ const Page = () => {
         </CldUploadWidget>
 
         <div className="bg-secondary/50 rounded-lg p-4">
-          <div className="">
+          <div className="min-h-screen">
             <MasonryDashboard
               items={images}
               onSelectionChange={(ids) => console.log("Selected images:", ids)}
               onRemove={(id) => console.log("Remove img:", id)}
             />
-            <Pagination />
+            <Pagination
+              totalPages={meta.totalPages}
+              currentPage={meta.page}
+              onPageChange={fetchImages}
+            />{" "}
           </div>
         </div>
       </div>
