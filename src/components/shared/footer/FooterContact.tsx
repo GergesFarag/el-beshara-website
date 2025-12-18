@@ -1,7 +1,7 @@
 "use client";
 import { getProfileDataAction, profileSelector } from "@/redux/slices/ProfileSlice";
 import { AppDispatch } from "@/redux/slices/Store";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -9,13 +9,15 @@ const FooterContact = () => {
   const tFooter = useTranslations("footer");
   const { profile } = useSelector(profileSelector);
     const dispatch = useDispatch<AppDispatch>();
+      const lang= useLocale();
+    
   
    useEffect(() => {
       dispatch(getProfileDataAction());
    
     }, [dispatch]);
   return (
-    <div className="space-y-4">
+    <div dir={lang === "ar" ? "rtl" : "ltr"} className="space-y-4">
       <h4 className="text-lg font-semibold text-white">
         {tFooter("contactUs")}
       </h4>
