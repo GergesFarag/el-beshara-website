@@ -2,16 +2,19 @@ import Animate from "@/components/ui/Animate";
 import MyBtn from "@/components/ui/MyBtn";
 import DynamicIcon from "@/hooks/DynamicIconHook";
 import { IService } from "@/lib/Interfaces/ServiceInterface";
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
+import { cookies } from "next/headers";
 
-const RecordLayout = () => {
-  const t = useTranslations("ourServices");
+const RecordLayout = async () => {
+  const cookieStore = await cookies();
+  const lang = cookieStore.get("NEXT_LOCALE")?.value || "en";
+  const t = await getTranslations({ locale: lang, namespace: "ourServices" });
   const recordData = t.raw("servicesData.record") as IService;
   return (
     <div className="flex flex-col gap-8 items-center  md:flex-row lg:p-8 md:p-6 p-2">
       {/* left */}
       <Animate className="w-full md:w-1/2">
-        <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-10 rounded-lg">
+        <div  className="w-full grid grid-cols-1 md:grid-cols-2 gap-10 rounded-lg">
           {recordData.points.map((point, index) => (
             <div
               key={index}
@@ -26,14 +29,14 @@ const RecordLayout = () => {
                   }
                 />{" "}
               </p>
-              <h3 className="text-lg md:text-xl capitalize">{point.label}</h3>
+              <h3 className="text-lg md:text-xl text-center capitalize">{point.label}</h3>
             </div>
           ))}
         </div>
       </Animate>
       {/* right */}
       <Animate className="w-full md:w-1/2" delay={0.5}>
-        <div className="w-full  flex flex-col space-y-4 shrink-0">
+        <div dir={lang === "ar" ? "rtl" : "ltr"} className="w-full  flex flex-col space-y-4 shrink-0">
           <h2 className="text-3xl w-fit font-bold text-primary capitalize relative animated-underline  mb-4">
             {recordData.title}
           </h2>
@@ -51,7 +54,7 @@ const RecordLayout = () => {
             ))}
           </div>
           <MyBtn
-            text="book your session now"
+            text={t("servicesData.record.toContact")}
             href="/contact"
             variant="primary"
             width="full"

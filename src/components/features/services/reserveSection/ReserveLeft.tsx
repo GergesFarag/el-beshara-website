@@ -7,7 +7,7 @@ const ReserveLeft = ({ className }: { className: string }) => {
       <div className="grid grid-cols-3 grid-rows-2 gap-3 h-full max-h-[600px]">
         <div className="row-span-1">
           <Image
-            src="/home/about1.jpg"
+            src="/home/about3.jpg"
             alt="about"
             width={900}
             height={900}
@@ -16,7 +16,7 @@ const ReserveLeft = ({ className }: { className: string }) => {
         </div>
         <div className="col-span-2 row-span-1">
           <Image
-            src="/home/about1.jpg"
+            src="/home/3.jpg"
             alt="about"
             width={900}
             height={900}
@@ -25,7 +25,7 @@ const ReserveLeft = ({ className }: { className: string }) => {
         </div>
         <div className="col-span-2 row-span-1">
           <Image
-            src="/home/about1.jpg"
+            src="/home/mic.jpg"
             alt="about"
             width={900}
             height={900}

@@ -1,22 +1,25 @@
 import MyBtn from "@/components/ui/MyBtn";
-import ServicesData from "@/data/ServicesData";
 import DynamicIcon from "@/hooks/DynamicIconHook";
 import { IService } from "@/lib/Interfaces/ServiceInterface";
 import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
+import { cookies } from "next/headers";
 import React from "react";
 
-const ReserveRight = ({ className }: { className: string }) => {
-  // const reserveIcon = ServicesData()[0];
-  const t = useTranslations("ourServices");
+const ReserveRight = async ({ className }: { className: string }) => {
+  const cookieStore = await cookies();
+  const lang = cookieStore.get("NEXT_LOCALE")?.value || "en";
+  const t = await getTranslations({ locale: lang, namespace: "ourServices" });
   const reserveData = t.raw("servicesData.reserve") as IService;
 
   return (
     <div
       className={`${className} group flex flex-col gap-5 items-center justify-center  rounded-lg lg:p-8 md:p-6 p-2 min-h-[600px]`}
+      dir={lang === "ar" ? "rtl" : "ltr"}
     >
       {/* title */}
-      <div className="">
-        <h2 className="text-3xl w-fit font-bold text-primary capitalize relative animated-underline  mb-4">
+      <div className="w-full">
+        <h2 className="text-3xl  w-fit font-bold text-primary capitalize relative animated-underline  mb-4">
           {reserveData.title}
         </h2>
         <p className="text-foreground">{reserveData.subtitle}</p>

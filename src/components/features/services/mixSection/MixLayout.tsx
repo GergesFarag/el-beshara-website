@@ -4,18 +4,23 @@ import ServicesData from "@/data/ServicesData";
 import DynamicIcon from "@/hooks/DynamicIconHook";
 import { IService } from "@/lib/Interfaces/ServiceInterface";
 import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
+import { cookies } from "next/headers";
 import Image from "next/image";
 import React from "react";
 
-const MixLayout = () => {
+const MixLayout = async() => {
   // const mixData = ServicesData()[2];
-  const t = useTranslations("ourServices");
+  // const t = useTranslations("ourServices");
+  const cookieStore = await cookies();
+  const lang = cookieStore.get("NEXT_LOCALE")?.value || "en";
+  const t = await getTranslations({ locale: lang, namespace: "ourServices" });
   const mixData = t.raw("servicesData.mix") as IService;
   return (
     <Animate>
       <div className="flex group flex-col  items-center  md:flex-row lg:p-8 md:p-6 p-2 ">
         {/* left */}
-        <div className="w-full md:w-1/2 flex flex-col space-y-4 p-4  dark:bg-secondary rounded-t-lg md:rounded-l-lg md:rounded-r-none ">
+        <div dir={lang === "ar" ? "rtl" : "ltr"}  className="w-full md:w-1/2 flex flex-col space-y-4 p-4  dark:bg-secondary rounded-t-lg md:rounded-l-lg md:rounded-r-none ">
           <h2 className="text-3xl w-fit font-bold text-primary capitalize relative animated-underline  mb-4">
             {mixData.title}
           </h2>
