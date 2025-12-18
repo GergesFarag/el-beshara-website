@@ -1,3 +1,5 @@
+import { JSX } from "react";
+
 export interface IServiceStat {
   label: string;
   value: string;
@@ -10,7 +12,7 @@ export interface IServiceAction {
 
 export interface IPoints{
   label: string;
-  icon: string ;
+  icon: string | JSX.Element;
 }
 
 export interface IService {

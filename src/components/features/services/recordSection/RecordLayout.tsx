@@ -18,7 +18,13 @@ const RecordLayout = () => {
               className="w-full flex relative justify-center items-center gap-4 p-5 pt-8 rounded-lg bg-secondary"
             >
               <p className="text-xl absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 lg:text-3xl bg-primary rounded-lg text-primary-foreground p-2">
-                <DynamicIcon iconName={point.icon} />
+                <DynamicIcon
+                  iconName={
+                    typeof point.icon === "string"
+                      ? point.icon
+                      : point.icon.toString()
+                  }
+                />{" "}
               </p>
               <h3 className="text-lg md:text-xl capitalize">{point.label}</h3>
             </div>

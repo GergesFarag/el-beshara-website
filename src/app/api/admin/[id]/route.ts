@@ -1,11 +1,14 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
 
-export async function DELETE(req: Request, { params }: { params: { id: string } }) {
+export async function DELETE(
+  req: NextRequest,
+  context: { params: Promise<{ id: string }> }
+) {
   try {
-    const { id } = await params;
+    const { id } = await context.params;
 
-      const cookiesObj = await cookies();
+    const cookiesObj = await cookies();
     const token = cookiesObj.get("token")?.value;
 
     const res = await fetch(`${process.env.SERVERBASE}/admin/${id}`, {
@@ -28,6 +31,6 @@ export async function DELETE(req: Request, { params }: { params: { id: string } 
     return NextResponse.json(result);
   } catch (error) {
     console.log("Error:", error);
-    // return NextResponse.json({ success: false, message: "Server error" }, { status: 500 });
+    return NextResponse.json({ success: false, message: "Server error" }, { status: 500 });
   }
 }

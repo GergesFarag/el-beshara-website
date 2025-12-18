@@ -28,7 +28,13 @@ const MixLayout = () => {
                 className="flex   text-center items-center gap-2 text-secondary-foreground "
               >
                 <p className="text-xl font-bold">
-                  <DynamicIcon iconName={point.icon} />
+                  <DynamicIcon
+                    iconName={
+                      typeof point.icon === "string"
+                        ? point.icon
+                        : point.icon.toString()
+                    }
+                  />{" "}
                 </p>
                 <p className="text-sm ">{point.label}</p>
               </div>
