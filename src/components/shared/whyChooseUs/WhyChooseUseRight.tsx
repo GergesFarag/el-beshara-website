@@ -1,10 +1,14 @@
 import MyBtn from "@/components/ui/MyBtn";
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
+import { cookies } from "next/headers";
 
-const WhyChooseUsRight = ({ className }: { className?: string }) => {
-  const t = useTranslations("whyChooseUs");
+const WhyChooseUsRight = async ({ className }: { className?: string }) => {
+  const cookieStore = await cookies();
+  const lang = cookieStore.get("NEXT_LOCALE")?.value || "en";
+  const t = await getTranslations({ locale: lang, namespace: "whyChooseUs" });
   return (
     <div
+    dir={lang === "ar" ? "rtl" : "ltr"}
       className={`${className} flex flex-col justify-center p-6 md:p-8 bg-secondary rounded-lg`}
     >
       <p className="text-primary/80 relative w-fit capitalize font-bold text-md md:text-lg  animated-underline mb-4">
