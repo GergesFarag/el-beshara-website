@@ -6,7 +6,7 @@ const LeftAboutHome = ({ className }: { className?: string }) => {
     <div className={`${className} `}>
       <div className="w-[90%] h-[300px] md:h-[500px] sm:h-[500px] relative  ">
         <Image
-          src="/home/about1.jpg"
+          src="/home/about3.jpg"
           alt="about"
           width={900}
           height={900}
