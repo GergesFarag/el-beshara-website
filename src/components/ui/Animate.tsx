@@ -10,12 +10,12 @@ interface Props {
   amount?: number
 }
 
-const Animate = ({ children, delay = 0, duration = 0.5, className , amount=0.1}: Props) => {
+const Animate = ({ children, delay = 0, duration = 0.5, className , amount=0.3}: Props) => {
   return (
     <motion.div
       className={`${className}`}
-      initial={{ opacity: 0, y: 50, scale: 0.7 }}
-      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: duration, delay: delay }}
       viewport={{ once: true , amount: amount}}
     >
