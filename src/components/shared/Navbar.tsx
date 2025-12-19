@@ -103,7 +103,7 @@ const Navbar = ({
                   width={40}
                   height={40}
                   src={profile.logo.url}
-                  className="max-h-8 dark:invert"
+                  className="max-h-8"
                   alt={logo.alt}
                 />
               )}
@@ -150,7 +150,7 @@ const Navbar = ({
                   width={40}
                   height={40}
                   src={profile.logo.url}
-                  className="max-h-8 dark:invert"
+                  className="max-h-8"
                   alt={logo.alt}
                 />
               )}
@@ -191,7 +191,7 @@ const Navbar = ({
                             width={40}
                             height={40}
                             src={profile.logo.url}
-                            className="max-h-8 dark:invert"
+                            className="max-h-8"
                             alt={logo.alt}
                           />
                         )}
@@ -258,7 +258,7 @@ const Navbar = ({
                 width={40}
                 height={40}
                 src={profile.logo.url}
-                className="max-h-8 dark:invert"
+                className="max-h-8"
                 alt={logo.alt}
               />
             )}
@@ -313,7 +313,7 @@ const Navbar = ({
                 width={40}
                 height={40}
                 src={profile.logo.url}
-                className="max-h-8 dark:invert"
+                className="max-h-8"
                 alt={logo.alt}
               />
             )}
@@ -360,7 +360,7 @@ const Navbar = ({
                           width={40}
                           height={40}
                           src={profile.logo.url}
-                          className="max-h-8 dark:invert"
+                          className="max-h-8"
                           alt={logo.alt}
                         />
                       )}
