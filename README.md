@@ -1,36 +1,153 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# El Beshara Studio — Website & Admin Dashboard
 
-## Getting Started
+El Beshara is a **modern, multi-language web platform** built for **El Beshara Studio** to professionally showcase its brand, services, and media portfolio, with a **full-featured admin dashboard** for managing all content dynamically.
 
-First, run the development server:
+The project combines a **high-performance public website** with a **powerful admin system**, allowing full control over images, videos, reels, services, promotions, and studio data.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+---
+
+## ✨ Project Overview
+
+**El Beshara Studio Website** is designed to:
+
+- Present the studio identity and brand professionally
+- Showcase high-quality **images, videos, and reels**
+- Support **Arabic & English** languages
+- Provide a **secure admin dashboard** for content management
+- Scale easily with a modern Next.js architecture
+
+---
+
+## 🚀 Tech Stack
+
+### Frontend
+- Next.js (App Router)
+- React
+- TypeScript
+- Tailwind CSS / PostCSS
+- Redux Toolkit
+
+### Media & Assets
+- Cloudinary (images, videos, transformations)
+- Next.js Image Optimization
+
+### Localization
+- next-intl
+- Arabic (RTL) & English (LTR) support
+
+### Deployment
+- Vercel (recommended)
+- Environment-based configuration
+
+---
+
+## 🧩 Key Features
+
+### 🌍 Public Website
+- Home, About, Services, Gallery, and Contact pages
+- Media galleries for:
+  - Images
+  - Videos
+  - Reels
+- Studio profile & branding
+- Fully responsive and SEO-friendly design
+
+---
+
+### 🛠 Admin Dashboard
+Admins can fully control the website content through a dedicated dashboard:
+
+- Manage Images
+- Manage Videos & Reels
+- Manage Services & Categories
+- Manage Promotions
+- Update Studio Information
+- Multi-language content support
+
+Admin routes are located under:
+
+```text
+src/app/admin
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 🌐 Multi-language (i18n)
+- Translation files stored in `messages`
+- Centralized text and validation localization
+- Automatic RTL / LTR direction handling
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+## 🧪 Available Scripts
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+npm install        # Install dependencies
+npm run dev        # Start development server
+npm run build      # Build for production
+npm start          # Start production server
+npm run lint       # Run linting
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## 🖥 Local Development
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+git clone https://github.com/marinaeleshaa/el-beshara-website.git
+cd el-beshara-website
+npm install
+npm run dev
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Open:
+https://el-beshara-studio.vercel.app
+
+---
+
+## ☁️ Deployment
+
+### Recommended: Vercel
+- Zero-config deployment for Next.js
+- Automatic builds and preview deployments
+- Environment variables managed via dashboard
+
+### Alternatives
+- Docker-based deployment
+- Any Node.js-compatible hosting provider
+
+---
+
+## 🔐 Security Notes
+
+- Admin routes are protected
+- Sensitive keys are server-side only
+- Use environment variables for secrets
+- Rotate keys if accidentally exposed
+
+---
+
+## 🔮 Future Improvements
+
+- CI/CD with GitHub Actions
+- Role-based admin permissions
+- Analytics dashboard
+- Media performance optimizations
+- Component documentation / Storybook
+- Automated testing (unit & e2e)
+
+---
+
+## 👩‍💻 Author
+
+**Marina Eleshaa**  
+Frontend Developer  
+GitHub: https://github.com/marinaeleshaa
+
+---
+
+## 📄 License
+
+No license specified yet.  
+MIT License is recommended for open-source usage.
