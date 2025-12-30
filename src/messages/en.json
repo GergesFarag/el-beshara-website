@@ -9,7 +9,11 @@
     },
     "phone": {
       "length": "Phone number must be 11 digits",
-      "required": "Please enter a phone number"
+      "required": "Please enter a phone number",
+      "invalidFormat": "Phone must start with country code (e.g., +20)",
+      "min": "Phone number must be at least 10 digits",
+      "max": "Phone number must be at most 18 digits",
+      "invalidLength": "Phone number length is invalid for the selected country"
     },
     "subject": {
       "min": "Please enter a subject",
@@ -24,7 +28,7 @@
     "homeHero": [
       {
         "title": "El-Beshara Charity",
-        "description": "Serving our community with love and compassion. Supporting families, empowering individuals, and spreading hope through faith-based charitable work.",
+        "description": "A creative space where artists find their true sound. Record, mix, master, and bring your vision to life with a professional team and world-class equipment.",
         "href": "/"
       },
       {
@@ -408,10 +412,10 @@
   },
   "promotion": {
     "hero": {
-      "badge": "Exclusive Offer",
-      "title1": "Studio Promotions ",
-      "title2": "Book Now & Save",
-      "description": " Discover special offers on studio recording sessions. Book your session today and support our charitable work.",
+      "badge": "Execlusive Offer",
+      "title1": "Amazing Promotions ",
+      "title2": "Just for you",
+      "description": " Discover unbeatable deals and limited-time offers. Save big on your favorite products and services.",
       "activeDeals": "Active Deals",
       "upTo": "Up to",
       "discount": "Discounts"
@@ -424,7 +428,7 @@
       "stayTuned": "Stay Tuned"
     },
     "card": {
-      "btnText": "Book Session",
+      "btnText": "Get the Offer",
       "active": "Active",
       "remaining": "days left"
     }

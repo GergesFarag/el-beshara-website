@@ -26,6 +26,10 @@ export const metadata: Metadata = {
     "Serving our community with faith, hope, and love through charitable programs and support services.",
 };
 
+
+
+
+
 export default async function RootLayout({
   children,
 }: Readonly<{

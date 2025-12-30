@@ -37,6 +37,15 @@ interface NavbarProps {
   className?: string;
 }
 
+const LanguageSwitcher = dynamic(() => import("./LanguageSwitcher"), {
+  ssr: false,
+  loading: () => (
+    <div className="w-8 h-8 bg-background text-foreground flex justify-center items-center rounded-lg">
+      <Spinner />
+    </div>
+  ),
+});
+
 const Navbar = ({
   logo = {
     url: "/",
@@ -57,7 +66,6 @@ const Navbar = ({
   const isRTL = lang === "ar";
   const [open, setOpen] = useState(false);
 
-
   useEffect(() => {
     setMounted(true);
     dispatch(getProfileDataAction());
@@ -73,15 +81,6 @@ const Navbar = ({
   }, [dispatch]);
 
   // console.log(profile);
-
-  const LanguageSwitcher = dynamic(() => import("./LanguageSwitcher"), {
-    ssr: false,
-    loading: () => (
-      <div className="w-8 h-8 bg-background text-foreground flex justify-center items-center rounded-lg">
-        <Spinner />
-      </div>
-    ),
-  });
 
   // Prevent hydration mismatch by not rendering direction-dependent classes until mounted
   if (!mounted) {
@@ -103,7 +102,7 @@ const Navbar = ({
                   width={40}
                   height={40}
                   src={profile.logo.url}
-                  className="max-h-8 dark:invert"
+                  className="max-h-8"
                   alt={logo.alt}
                 />
               )}
@@ -137,7 +136,7 @@ const Navbar = ({
             {/* Desktop Mode Toggle  & Language Switcher*/}
             <div className="hidden md:flex items-center gap-4">
               <ModeToggle />
-              <LanguageSwitcher />
+              <LanguageSwitcher scrolled={scrolled} />
             </div>
           </nav>
 
@@ -150,7 +149,7 @@ const Navbar = ({
                   width={40}
                   height={40}
                   src={profile.logo.url}
-                  className="max-h-8 dark:invert"
+                  className="max-h-8"
                   alt={logo.alt}
                 />
               )}
@@ -181,7 +180,7 @@ const Navbar = ({
 
                 <SheetContent
                   side="right"
-                  className="w-[300px] sm:w-[400px] overflow-y-auto"
+                  className="w-75 sm:w-100 overflow-y-auto"
                 >
                   <SheetHeader>
                     <SheetTitle className="text-left">
@@ -191,7 +190,7 @@ const Navbar = ({
                             width={40}
                             height={40}
                             src={profile.logo.url}
-                            className="max-h-8 dark:invert"
+                            className="max-h-8"
                             alt={logo.alt}
                           />
                         )}
@@ -224,7 +223,7 @@ const Navbar = ({
                       <ModeToggle />
                     </div>
                     <div className="flex justify-center">
-                      <LanguageSwitcher />
+                      <LanguageSwitcher scrolled={scrolled} />
                     </div>
                   </div>
                 </SheetContent>
@@ -258,7 +257,7 @@ const Navbar = ({
                 width={40}
                 height={40}
                 src={profile.logo.url}
-                className="max-h-8 dark:invert"
+                className="max-h-8"
                 alt={logo.alt}
               />
             )}
@@ -300,7 +299,7 @@ const Navbar = ({
             }`}
           >
             <ModeToggle />
-            <LanguageSwitcher />
+            <LanguageSwitcher scrolled={scrolled} />
           </div>
         </nav>
 
@@ -313,7 +312,7 @@ const Navbar = ({
                 width={40}
                 height={40}
                 src={profile.logo.url}
-                className="max-h-8 dark:invert"
+                className="max-h-8"
                 alt={logo.alt}
               />
             )}
@@ -345,7 +344,7 @@ const Navbar = ({
 
               <SheetContent
                 side={isRTL ? "left" : "right"}
-                className="w-[300px] sm:w-[400px] overflow-y-auto"
+                className="w-75 sm:w-100 overflow-y-auto"
               >
                 <SheetHeader>
                   <SheetTitle className={isRTL ? "text-right" : "text-left"}>
@@ -360,7 +359,7 @@ const Navbar = ({
                           width={40}
                           height={40}
                           src={profile.logo.url}
-                          className="max-h-8 dark:invert"
+                          className="max-h-8"
                           alt={logo.alt}
                         />
                       )}
@@ -397,7 +396,7 @@ const Navbar = ({
                     <ModeToggle />
                   </div>
                   <div className="flex justify-center">
-                    <LanguageSwitcher />
+                    <LanguageSwitcher scrolled={scrolled} />
                   </div>
                 </div>
               </SheetContent>
