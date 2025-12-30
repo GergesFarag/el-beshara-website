@@ -27,7 +27,7 @@
   "home": {
     "homeHero": [
       {
-        "title": "El-Beshara Music Studio",
+        "title": "El-Beshara Charity",
         "description": "A creative space where artists find their true sound. Record, mix, master, and bring your vision to life with a professional team and world-class equipment.",
         "href": "/"
       },
@@ -274,7 +274,7 @@
       { "title": "Gallery", "url": "/gallery/images" },
       { "title": "Contact", "url": "/contact" }
     ],
-    "studioName": "El-Beshara Studio",
+    "studioName": "El-Beshara Charity",
     "pageHero": {
       "home": "Home",
       "about": "About",
